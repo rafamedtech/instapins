@@ -16,3 +16,11 @@
     -webkit-appearance: none;
   }
 }
+
+@layer utilities {
+  .active-dropzone {
+    background-color: #2f80ed;
+    border-color: #fff;
+    transition: all 0.3s ease;
+  }
+}

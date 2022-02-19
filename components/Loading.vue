@@ -12,3 +12,9 @@
 <script>
 export default {}
 </script>
+
+<style>
+.fade-enter-active {
+  transition: opacity 0.5s;
+}
+</style>
