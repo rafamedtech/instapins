@@ -2,16 +2,16 @@
   <article class="flex flex-col items-center">
     <CloseCircle
       v-if="request.status === 'error'"
-      size="48"
+      :size="48"
       fill-color="#C30000"
     />
     <CheckCircle
       v-if="request.status === 'success'"
-      size="48"
+      :size="48"
       fill-color="#219653"
     />
 
-    <h1 v-if="request.status" class="text-lg">
+    <h1 v-if="request.status" class="text-base">
       {{ request.message }}
     </h1>
 

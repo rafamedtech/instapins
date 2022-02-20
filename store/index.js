@@ -8,12 +8,6 @@ export const state = () => ({
 })
 
 export const actions = {
-  async getImage({ commit }, payload) {
-    const { data } = await this.$axios.get(`/${payload}`)
-
-    commit('setImage', data)
-  },
-
   isLoading({ commit }, payload) {
     commit('setIsLoading', payload)
   },
@@ -21,11 +15,24 @@ export const actions = {
   async uploadImage({ commit }, payload) {
     try {
       const { error } = await this.$axios.post('/', payload)
+      console.log(payload)
 
       if (error) throw error
     } catch ({ response }) {
       commit('setErrorMsg', response.data.error)
       payload = null
+    }
+  },
+
+  async getImageInfo({ commit }, payload) {
+    try {
+      const { data, error } = await this.$axios.get(`/${payload}`)
+
+      commit('setImageInfo', data)
+
+      if (error) throw error
+    } catch ({ response }) {
+      commit('setErrorMsg', response.data.error)
     }
   },
 }
@@ -44,8 +51,10 @@ export const getters = {
 
 // mutations
 export const mutations = {
-  setImage(state, payload) {
-    state.image = payload
+  setImageInfo(state, { image }) {
+    state.image = image
+    state.request.message = 'Uploaded Successfully!'
+    state.request.status = 'success'
   },
   setIsLoading(state, payload) {
     setTimeout(() => {
