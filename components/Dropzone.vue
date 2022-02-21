@@ -37,7 +37,7 @@
     >
       <img
         class="h-[89px] w-[114px] rounded-md"
-        src="@/assets/upload.PNG"
+        src="@/assets/upload.png"
         alt=""
       />
       <span class="text-[12px] text-[#BDBDBD]"
@@ -60,7 +60,9 @@
       >
         Copy Link
       </button>
-      <span v-if="copy" class="absolute bottom-2 text-sm"
+      <span
+        :class="copy ? 'opacity-1' : 'opacity-0'"
+        class="absolute -bottom-8 text-[12px] text-[#BDBDBD] transition"
         >Text copied to clipboard</span
       >
     </article>
@@ -78,8 +80,9 @@
 </template>
 
 <script>
-import Loading from './Loading.vue'
-import UploadHeader from './UploadHeader.vue'
+import Loading from '@/components/Loading'
+import UploadHeader from '@/components/UploadHeader'
+
 export default {
   components: { Loading, UploadHeader },
   data() {
@@ -94,6 +97,7 @@ export default {
     request() {
       return this.$store.getters.getRequest
     },
+
     uploadedImage() {
       return this.$store.getters.getImage
     },
@@ -101,31 +105,36 @@ export default {
 
   methods: {
     uploadImage() {
+      this.$store.dispatch('resetRequest')
       const formData = new FormData()
-      formData.append('image', this.file)
+      formData.append('image', this.file, this.file.name)
       formData.append('title', this.file.name)
       this.isLoading = true
       this.$store.dispatch('uploadImage', formData)
+
       setTimeout(() => {
         if (this.request.status !== 'error') {
           this.$store.dispatch('getImageInfo', this.file.name)
         }
         this.isLoading = false
-      }, 2000)
+      }, 3000)
     },
 
     onFileChange(e) {
       this.file = e.target.files[0]
       this.uploadImage()
     },
+
     toggleActive() {
       this.active = !this.active
     },
+
     drop(e) {
       this.toggleActive()
       this.file = e.dataTransfer.files[0]
       this.uploadImage()
     },
+
     copyToClipboard() {
       const el = document.createElement('textarea')
       el.classList.add('hidden')

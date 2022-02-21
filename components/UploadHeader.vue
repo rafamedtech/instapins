@@ -27,6 +27,7 @@
 <script>
 import CloseCircle from 'vue-material-design-icons/CloseCircle.vue'
 import CheckCircle from 'vue-material-design-icons/CheckCircle.vue'
+
 export default {
   components: {
     CloseCircle,

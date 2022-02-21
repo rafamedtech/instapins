@@ -4,7 +4,7 @@
   >
     <span class="text-md">Uploading</span>
     <span
-      class="h-[6px] w-[340px] rounded-lg bg-[#f2f2f2] after:w-[100px] after:bg-[#2F80ED]"
+      class="loading-animation relative h-[6px] w-[340px] overflow-hidden rounded-lg bg-[#f2f2f2] after:absolute after:inset-0 after:w-32 after:translate-x-2 after:rounded-lg after:bg-[#2F80ED] after:content-['']"
     ></span>
   </div>
 </template>
@@ -12,9 +12,3 @@
 <script>
 export default {}
 </script>
-
-<style>
-.fade-enter-active {
-  transition: opacity 0.5s;
-}
-</style>

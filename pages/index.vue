@@ -1,25 +1,19 @@
 <template>
   <div class="grid h-screen place-items-center bg-[#FAFAFB]">
-    <transition name="fade">
-      <Loading v-if="isLoading" />
-    </transition>
-    <UploadCard />
+    <section
+      class="h-[469px] w-[402px] flex-col rounded-xl bg-white py-9 shadow-lg"
+    >
+      <Dropzone />
+    </section>
   </div>
 </template>
 
 <script>
-import UploadCard from '@/components/UploadCard'
-import Loading from '@/components/Loading'
+import Dropzone from '@/components/Dropzone'
 
 export default {
   components: {
-    Loading,
-    UploadCard,
-  },
-  computed: {
-    isLoading() {
-      return this.$store.getters.getIsLoading
-    },
+    Dropzone,
   },
 }
 </script>

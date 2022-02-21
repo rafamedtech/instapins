@@ -23,4 +23,16 @@
     border-color: #fff;
     transition: all 0.3s ease;
   }
+
+  .loading-animation::after {
+    animation: loading-animation 1.5s linear infinite;
+  }
+  @keyframes loading-animation {
+    0% {
+      transform: translateX(-250px);
+    }
+    100% {
+      transform: translateX(400px);
+    }
+  }
 }

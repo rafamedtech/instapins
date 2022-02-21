@@ -4,23 +4,20 @@ export const state = () => ({
     message: null,
     status: null,
   },
-  isLoading: false,
 })
 
 export const actions = {
-  isLoading({ commit }, payload) {
-    commit('setIsLoading', payload)
+  resetRequest({ commit }) {
+    commit('resetRequest')
   },
 
   async uploadImage({ commit }, payload) {
     try {
       const { error } = await this.$axios.post('/', payload)
-      console.log(payload)
 
       if (error) throw error
     } catch ({ response }) {
       commit('setErrorMsg', response.data.error)
-      payload = null
     }
   },
 
@@ -44,9 +41,6 @@ export const getters = {
   getRequest(state) {
     return state.request
   },
-  getIsLoading(state) {
-    return state.isLoading
-  },
 }
 
 // mutations
@@ -56,12 +50,12 @@ export const mutations = {
     state.request.message = 'Uploaded Successfully!'
     state.request.status = 'success'
   },
-  setIsLoading(state, payload) {
-    setTimeout(() => {
-      state.isLoading = payload
-    }, 2000)
-    state.isLoading = false
+
+  resetRequest(state) {
+    state.request.message = null
+    state.request.status = null
   },
+
   setErrorMsg(state, payload) {
     state.request.message = payload
     state.request.status = 'error'
