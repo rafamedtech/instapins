@@ -7,7 +7,20 @@ module.exports = {
     './nuxt.config.{js,ts}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        pinterest: 'rgb(0 0 0 / 10%) 0px 1px 20px 0px',
+        nav: 'rgb(0 0 0 / 10%) 0px 8px 8px -8px',
+      },
+      container: {
+        center: true,
+        screens: {
+          lg: '1124px',
+          xl: '1124px',
+          '2xl': '1124px',
+        },
+      },
+    },
   },
   plugins: [],
 }
