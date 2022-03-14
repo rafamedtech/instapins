@@ -17,7 +17,6 @@
     </p>
     <button
       class="absolute top-2 right-2 hidden self-start rounded-lg border border-red-500 p-1 text-red-500 transition-all duration-300 hover:bg-red-500 hover:text-white group-hover:block"
-      @click.stop="test1"
     >
       Delete
     </button>
@@ -36,9 +35,6 @@ export default {
   methods: {
     test() {
       console.log('test')
-    },
-    test1() {
-      console.log('test1')
     },
   },
 }
