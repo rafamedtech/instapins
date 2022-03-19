@@ -14,6 +14,7 @@
     </div>
     <div>
       <nuxt-link
+        v-if="$route.path !== '/upload'"
         to="/upload"
         class="rounded-lg bg-green-600 px-3 py-3 text-white shadow-md"
       >

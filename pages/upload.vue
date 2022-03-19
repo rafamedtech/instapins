@@ -1,7 +1,8 @@
 <template>
-  <div class="grid h-screen place-items-center">
+  <div class="">
     <section
-      class="h-[469px] w-[402px] flex-col rounded-xl bg-white py-9 shadow-pinterest"
+      class="mx-auto mt-20 h-[469px] w-[402px] flex-col rounded-xl bg-white shadow-pinterest"
+      :class="request.status === 'success' ? 'pb-9 pt-4' : 'py-9'"
     >
       <Dropzone />
     </section>
@@ -9,5 +10,11 @@
 </template>
 
 <script>
-export default {}
+export default {
+  computed: {
+    request() {
+      return this.$store.getters.getRequest
+    },
+  },
+}
 </script>
