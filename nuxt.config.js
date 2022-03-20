@@ -1,3 +1,5 @@
+import { resolve } from 'path'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -39,11 +41,16 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
   ],
+
+  alias: {
+    icons: resolve(__dirname, 'node_modules/vue-material-design-icons'),
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:8000/uploads',
+    baseURL: 'http://localhost:8000/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -52,6 +59,22 @@ export default {
       plugins: {
         tailwindcss: {},
         autoprefixer: {},
+      },
+    },
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'users/token/',
+            method: 'post',
+            propertyName: 'token',
+          },
+          logout: { url: '/logout', method: 'post' },
+          user: { url: '/users', method: 'get', propertyName: 'user' },
+        },
       },
     },
   },

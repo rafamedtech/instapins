@@ -12,18 +12,36 @@
         placeholder="🔎 Search by name"
       />
     </div>
-    <div>
+    <div class="flex gap-x-4">
       <nuxt-link
-        v-if="$route.path !== '/upload'"
+        v-if="$route.path !== '/upload' && $auth.user"
         to="/upload"
         class="rounded-lg bg-green-600 px-3 py-3 text-white shadow-md"
       >
         Add a photo
       </nuxt-link>
+      <nuxt-link
+        v-if="!$auth.user && $route.path !== '/login'"
+        to="/login"
+        class="rounded-lg bg-green-600 px-3 py-3 text-white shadow-md"
+      >
+        Login
+      </nuxt-link>
+      <button
+        v-if="$auth.user"
+        class="rounded-lg bg-blue-600 px-3 py-3 text-white shadow-md"
+        @click="$auth.logout()"
+      >
+        Logout
+      </button>
     </div>
   </header>
 </template>
 
 <script>
-export default {}
+export default {
+  data: () => ({
+    user: null,
+  }),
+}
 </script>

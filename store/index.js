@@ -36,6 +36,51 @@ export const actions = {
       commit('setErrorMsg', response.data.error)
     }
   },
+
+  // User Registration
+  async userRegister({ commit }, payload) {
+    try {
+      const { error } = await this.$axios.post('/users/register/', payload)
+
+      // commit('setStatusMsg', 'Registration successful!')
+      // setTimeout(() => {
+      //   commit('setStatusMsg', null)
+      // }, 5000)
+      this.$router.push('/login')
+
+      if (error) throw error
+    } catch ({ response }) {
+      commit('setErrorMsg', response.data.error)
+      setTimeout(() => {
+        commit('setErrorMsg', null)
+      }, 5000)
+    }
+  },
+
+  // User Login
+  async userLogin({ commit }, payload) {
+    try {
+      const { data, error } = await this.$auth.loginWith('local', {
+        data: payload,
+      })
+
+      this.$auth.setUser(data.user)
+
+      await this.$auth.setUserToken(data.access, data.refresh)
+      // commit('setStatusMsg', 'Login successful')
+      // setTimeout(() => {
+      //   commit('setStatusMsg', null)
+      // }, 5000)
+      this.$router.push('/')
+
+      if (error) throw error
+    } catch ({ response }) {
+      commit('setErrorMsg', response.data.detail)
+      setTimeout(() => {
+        commit('setErrorMsg', null)
+      }, 5000)
+    }
+  },
 }
 
 export const getters = {

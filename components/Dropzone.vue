@@ -14,26 +14,26 @@
       v-if="request.status === 'success'"
       class="flex w-full justify-between px-4"
     >
-      <div
+      <article
         class="flex cursor-pointer flex-col items-center justify-center"
         @click="clearUpload"
       >
-        <Cached :size="36" fill-color="#2C394B" />
+        <Clear :size="36" fill-color="#2C394B" />
         <span class="text-[10px]">New upload</span>
-      </div>
-      <div class="flex items-center gap-x-2">
+      </article>
+      <article class="flex items-center gap-x-2">
         <div class="flex cursor-pointer flex-col items-center justify-center">
-          <FilePlus fill-color="#2C394B" :size="36" />
+          <Add fill-color="#2C394B" :size="36" />
           <span class="text-[10px]">New Pin</span>
         </div>
         <div
           class="flex cursor-pointer flex-col items-center justify-center"
           @click="deleteUpload"
         >
-          <CloseCircle :size="36" fill-color="#C30000" />
+          <Delete :size="36" fill-color="#C30000" />
           <span class="text-[10px]">Delete</span>
         </div>
-      </div>
+      </article>
     </div>
 
     <UploadHeader
@@ -112,19 +112,19 @@ import CloseCircle from 'vue-material-design-icons/CloseCircle.vue'
 
 export default {
   components: {
-    Cached,
-    FilePlus,
-    CloseCircle,
+    Clear: Cached,
+    Add: FilePlus,
+    Delete: CloseCircle,
   },
-  data() {
-    return {
-      active: false,
-      file: null,
-      isLoading: false,
-      loadingMsg: null,
-      copy: false,
-    }
-  },
+
+  data: () => ({
+    active: false,
+    file: null,
+    isLoading: false,
+    loadingMsg: null,
+    copy: false,
+  }),
+
   computed: {
     request() {
       return this.$store.getters.getRequest
