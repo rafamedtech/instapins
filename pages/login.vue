@@ -14,11 +14,13 @@
         />
       </figure>
       <section class="mb-2 flex flex-col">
-        <label for="email" class="mb-1 text-sm text-gray-500">Email</label>
+        <label for="username" class="mb-1 text-sm text-gray-500"
+          >Username</label
+        >
         <input
-          id="email"
-          v-model="email"
-          type="email"
+          id="username"
+          v-model="username"
+          type="text"
           class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-blue-500"
           required
         />
@@ -53,7 +55,7 @@
 <script>
 export default {
   data: () => ({
-    email: '',
+    username: '',
     password: '',
   }),
 
@@ -71,7 +73,7 @@ export default {
   methods: {
     userLogin() {
       return this.$store.dispatch('userLogin', {
-        email: this.email,
+        username: this.username,
         password: this.password,
       })
     },

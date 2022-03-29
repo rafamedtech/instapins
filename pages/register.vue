@@ -14,10 +14,12 @@
         />
       </figure>
       <section class="mb-2 flex flex-col">
-        <label for="name" class="mb-1 text-sm text-gray-500">Name</label>
+        <label for="username" class="mb-1 text-sm text-gray-500"
+          >Username</label
+        >
         <input
-          id="name"
-          v-model="name"
+          id="username"
+          v-model="username"
           type="text"
           class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-blue-500"
           required
@@ -76,7 +78,7 @@
       v-if="formErrorMsg"
       class="absolute right-4 top-4 mt-2 flex animate-bounce items-center gap-x-2 rounded-md bg-white p-4 text-gray-500 shadow-lg"
     >
-      <AlertCircle fill-color="#C30000" :size="36" />
+      <AlertIcon fill-color="#C30000" :size="36" />
       <p>{{ formErrorMsg }}</p>
     </article>
   </main>
@@ -87,11 +89,11 @@ import AlertCircle from 'icons/AlertCircle.vue'
 
 export default {
   components: {
-    AlertCircle,
+    AlertIcon: AlertCircle,
   },
 
   data: () => ({
-    name: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -113,7 +115,7 @@ export default {
     userRegister() {
       if (this.password === this.confirmPassword) {
         return this.$store.dispatch('userRegister', {
-          name: this.name,
+          username: this.username,
           email: this.email,
           password: this.password,
         })
@@ -123,18 +125,6 @@ export default {
         this.formErrorMsg = ''
       }, 5000)
     },
-    // userRegister() {
-    //   if (this.password === this.confirmPassword) {
-    //     return this.$store.dispatch('userRegister', {
-    //       email: this.email,
-    //       password: this.password,
-    //     })
-    //   }
-    //   this.formErrorMsg = 'Passwords do not match'
-    //   setTimeout(() => {
-    //     this.formErrorMsg = ''
-    //   }, 5000)
-    // },
   },
 }
 </script>

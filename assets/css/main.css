@@ -7,6 +7,7 @@
 
   body {
     font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
   }
 
   input::-webkit-file-upload-button {
@@ -35,4 +36,20 @@
       transform: translateX(400px);
     }
   }
+}
+
+/* Transitions */
+.fade-enter {
+  transform: scale(0.9);
+  /* opacity: 0; */
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s ease;
+}
+
+.fade-leave-to {
+  transform: scale(0.9);
+  /* opacity: 0; */
 }

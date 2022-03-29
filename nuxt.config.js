@@ -42,6 +42,14 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
+    [
+      'nuxt-supabase',
+      {
+        supabaseUrl: 'https://kkacmmdynlmnvnvjismq.supabase.co',
+        supabaseKey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtrYWNtbWR5bmxtbnZudmppc21xIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDcyNjg3MjUsImV4cCI6MTk2Mjg0NDcyNX0.VQdkKKIz3wccr-54OOyh55gFRPTeuprJ62JmN4VJj5U',
+      },
+    ],
   ],
 
   alias: {
@@ -72,8 +80,8 @@ export default {
             method: 'post',
             propertyName: 'token',
           },
-          logout: { url: '/logout', method: 'post' },
-          user: { url: '/users', method: 'get', propertyName: 'user' },
+          logout: { url: 'users/logout/', method: 'post' },
+          user: { url: 'users/', method: 'get', propertyName: 'user' },
         },
       },
     },

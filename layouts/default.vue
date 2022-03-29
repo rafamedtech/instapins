@@ -1,12 +1,19 @@
 <template>
   <div>
     <Header />
+    <Notification v-if="request.status" :request="request" />
     <Nuxt />
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  computed: {
+    request() {
+      return this.$store.getters.getRequest
+    },
+  },
+}
 </script>
 
 <style>

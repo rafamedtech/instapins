@@ -5,35 +5,17 @@
     <article
       v-if="isLoading"
       name="fade"
-      class="absolute top-0 z-50 grid h-screen w-screen place-items-center bg-[#FAFAFB]"
+      class="absolute inset-0 z-50 grid h-screen w-screen place-items-center bg-[#FAFAFB]"
     >
-      <Loading class="absolute" :message="loadingMsg" />
+      <Modal class="absolute" :message="modalMsg" />
     </article>
 
     <div
       v-if="request.status === 'success'"
-      class="flex w-full justify-between px-4"
+      class="flex w-full flex-col items-end justify-end px-4"
     >
-      <article
-        class="flex cursor-pointer flex-col items-center justify-center"
-        @click="clearUpload"
-      >
-        <Clear :size="36" fill-color="#2C394B" />
-        <span class="text-[10px]">New upload</span>
-      </article>
-      <article class="flex items-center gap-x-2">
-        <div class="flex cursor-pointer flex-col items-center justify-center">
-          <Add fill-color="#2C394B" :size="36" />
-          <span class="text-[10px]">New Pin</span>
-        </div>
-        <div
-          class="flex cursor-pointer flex-col items-center justify-center"
-          @click="deleteUpload"
-        >
-          <Delete :size="36" fill-color="#C30000" />
-          <span class="text-[10px]">Delete</span>
-        </div>
-      </article>
+      <Delete :size="36" fill-color="#C30000" @click="deleteUpload" />
+      <span class="text-[10px]">Delete</span>
     </div>
 
     <UploadHeader
@@ -44,10 +26,16 @@
       v-if="request.status === 'success'"
       class="h-[219px] w-[338px] rounded-xl"
     >
+      <!-- <img
+        v-if="request.status"
+        class="h-full w-full rounded-xl"
+        src="https://us-files.hostinger.mx/handler.php?action=download?action=download&path=%2Fdomains%2Fsuntech-api.com%2Fpublic_html%2Fimage_uploader%2Fcover.jpg"
+        alt=""
+      /> -->
       <img
         v-if="request.status"
         class="h-full w-full rounded-xl"
-        :src="image.image"
+        :src="image"
         alt=""
       />
     </article>
@@ -75,7 +63,7 @@
       v-if="request.status === 'success'"
       class="relative mt-4 flex flex-col items-center gap-2"
     >
-      <input
+      <!-- <input
         class="h-[34px] w-[338px] rounded-lg bg-[#F6F8FB] py-[11px] pl-2 text-[8px] text-[#4F4F4F] text-inherit"
         type="text"
         :value="uploadedImage.image"
@@ -90,7 +78,14 @@
         :class="copy ? 'opacity-1' : 'opacity-0'"
         class="absolute -bottom-8 text-[12px] text-green-600 transition"
         >Text copied to clipboard</span
+      > -->
+      <article
+        class="flex cursor-pointer flex-col items-center justify-center"
+        @click="clearUpload"
       >
+        <Clear :size="36" fill-color="#2C394B" />
+        <span class="text-[10px]">New upload</span>
+      </article>
     </article>
 
     <article v-else class="flex flex-col items-center gap-2">
@@ -107,13 +102,13 @@
 
 <script>
 import Cached from 'vue-material-design-icons/Cached.vue'
-import FilePlus from 'vue-material-design-icons/FilePlus.vue'
+
 import CloseCircle from 'vue-material-design-icons/CloseCircle.vue'
 
 export default {
   components: {
     Clear: Cached,
-    Add: FilePlus,
+
     Delete: CloseCircle,
   },
 
@@ -121,7 +116,7 @@ export default {
     active: false,
     file: null,
     isLoading: false,
-    loadingMsg: null,
+    modalMsg: null,
     copy: false,
   }),
 
@@ -140,13 +135,13 @@ export default {
 
   methods: {
     uploadImage() {
-      this.loadingMsg = 'Uploading image...'
-      this.$store.dispatch('resetRequest')
-      const formData = new FormData()
-      formData.append('image', this.file, this.file.name)
-      formData.append('title', this.file.name)
+      this.modalMsg = 'Uploading image...'
+      // this.$store.dispatch('resetRequest')
+      // const formData = new FormData()
+      // formData.append('image', this.file, this.file.name)
+      // formData.append('title', this.file.name)
       this.isLoading = true
-      this.$store.dispatch('uploadImage', formData)
+      this.$store.dispatch('uploadImage', this.file.name, this.file)
 
       setTimeout(() => {
         if (this.request.status !== 'error') {
