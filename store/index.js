@@ -13,47 +13,6 @@ export const actions = {
     await dispatch('fetchPins')
   },
 
-  // async uploadImage({ commit }, filename, file) {
-  //   // try {
-  //   //   const { error, data } = await this.$axios.post('/uploads/', payload)
-
-  //   //   commit('setImageInfo', data)
-
-  //   //   if (error) throw error
-  //   // } catch ({ response }) {
-  //   //   commit('setErrorMsg', response.data.error)
-  //   // }
-  //   try {
-  //     const { data, error } = await this.$supabase.storage
-  //       .from('test-bucket')
-  //       .upload(`/${filename}`, file)
-
-  //     const downloadUrl = await this.$supabase.storage
-  //       .from('test-bucket')
-  //       .download(filename)
-
-  //     // eslint-disable-next-line no-console
-  //     console.log(data)
-  //     console.log(downloadUrl)
-
-  //     // commit('setImageInfo', data)
-  //     if (error) throw error
-  //   } catch ({ response }) {
-  //     commit('setErrorMsg', response.data.error)
-  //   }
-  // },
-
-  // async deleteUploadedImage({ commit }, payload) {
-  //   try {
-  //     const { error } = await this.$axios.delete(`/delete/${payload}`)
-  //     commit('setDeleteUploadedImage', 'Delete Successfully')
-
-  //     if (error) throw error
-  //   } catch ({ response }) {
-  //     commit('setErrorMsg', response.data.error)
-  //   }
-  // },
-
   // User Registration
   async userRegister({ commit }, payload) {
     try {
@@ -156,7 +115,7 @@ export const actions = {
   async commentPin({ commit }, payload) {
     try {
       const { data, error } = await this.$axios.post(
-        `/pins/comment/${payload.pin_id}/`,
+        `/pins/comment/${payload.pin}/`,
         payload
       )
       // eslint-disable-next-line no-console
@@ -179,7 +138,7 @@ export const actions = {
   async deleteComment({ commit }, payload) {
     try {
       const { error } = await this.$axios.delete(
-        `/pins/comment/${payload.pin_id}/${payload.comment}/`
+        `/pins/comment/${payload.pin}/${payload.comment}/`
       )
       // eslint-disable-next-line no-console
       // console.log(data)
@@ -192,6 +151,91 @@ export const actions = {
       if (error) throw error
     } catch ({ response }) {
       commit('setErrorMsg', response.data.error)
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+    }
+  },
+
+  async likePin({ commit }, payload) {
+    try {
+      const { error } = await this.$axios.post(
+        `/pins/like/${payload.id}/`,
+        payload
+      )
+      // eslint-disable-next-line no-console
+      // console.log(data)
+
+      commit('setStatusMsg', 'Pin liked successfully')
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+      // this.$router.push('/')
+      if (error) throw error
+    } catch ({ response }) {
+      commit('setErrorMsg', response.data.error)
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+    }
+  },
+
+  async unlikePin({ commit }, payload) {
+    try {
+      const { data, error } = await this.$axios.delete(
+        `/pins/like/${payload.id}/`,
+        { data: payload }
+      )
+
+      // eslint-disable-next-line no-console
+      console.log(data)
+
+      commit('setStatusMsg', 'Pin unliked successfully')
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+      // this.$router.push('/')
+      if (error) throw error
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error)
+      commit('setErrorMsg', error)
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+    }
+  },
+
+  async uploadImage({ commit }, payload) {
+    try {
+      const { data, error } = await this.$supabase.storage
+        .from('test-bucket')
+        .upload(payload.filename, payload.file)
+      // eslint-disable-next-line no-console
+
+      console.log(data)
+
+      commit('setStatusMsg', 'Image uploaded successfully')
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+      // this.$router.push('/')
+      if (error) throw error
+    } catch (error) {
+      commit('setErrorMsg', error)
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+    }
+    try {
+      const { publicURL, error } = await this.$supabase.storage
+        .from('test-bucket')
+        .getPublicUrl(payload.filename)
+
+      console.log(publicURL)
+      if (error) throw error
+    } catch (error) {
+      commit('setErrorMsg', error)
       setTimeout(() => {
         commit('resetRequest')
       }, 5000)

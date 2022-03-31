@@ -81,7 +81,7 @@ export default {
             propertyName: 'token',
           },
           logout: { url: 'users/logout/', method: 'post' },
-          user: { url: 'users/', method: 'get', propertyName: 'user' },
+          user: { url: 'users/', method: 'get', property: false },
         },
       },
     },

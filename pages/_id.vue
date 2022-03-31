@@ -8,25 +8,36 @@
       >
         <img class="w-full" :src="pin.url" alt="" />
       </figure>
-      <Heart
-        :size="48"
-        :fill-color="liked ? 'red' : 'gray'"
-        class="absolute right-4 top-4 z-50 cursor-pointer"
-        @click="like"
-      />
-      <article class="flex flex-col items-center gap-y-8 p-4 md:w-1/2">
-        <h1 class="w-[20ch] text-center text-3xl text-[#5481bb]">
-          {{ pin.title }}
-        </h1>
-        <span class="text-sm text-gray-500"
-          >Uploaded by <span class="text-green-600">{{ pin.owner }}</span></span
+      <div class="absolute right-4 top-4 z-50 flex flex-col items-center">
+        <Heart
+          :size="48"
+          :fill-color="liked ? 'red' : 'gray'"
+          class="cursor-pointer"
+          @click="like"
+        />
+        <span class="text-sm text-gray-600">{{ pin.likes.length }}</span>
+      </div>
+      <article
+        class="flex flex-col items-center justify-between gap-y-8 px-4 md:w-1/2"
+      >
+        <div
+          class="flex flex-col items-center justify-between gap-y-8 px-4 md:w-1/2"
         >
-        <p class="w-2/3 px-4 text-xs">
-          {{ pin.description }}
-        </p>
-
-        <div>
-          <h2 class="ml-4 mb-2 text-2xl font-bold text-[#5481bb]">Comments</h2>
+          <h1 class="w-[20ch] text-center text-3xl text-[#5481bb]">
+            {{ pin.title }}
+          </h1>
+          <span class="text-sm text-gray-500"
+            >Uploaded by
+            <span class="text-green-600">{{ pin.owner }}</span></span
+          >
+          <p class="w-2/3 px-4 text-xs md:w-[50ch]">
+            {{ pin.description }}
+          </p>
+        </div>
+        <div class="w-full">
+          <h2 class="ml-4 mb-2 text-center text-2xl font-bold text-[#5481bb]">
+            Comments
+          </h2>
           <div
             v-for="comment in pin.comments"
             :key="comment.id"
@@ -42,8 +53,9 @@
                 class="relative w-full rounded-[16px] border border-gray-400 p-4 text-gray-500"
               >
                 <Close
+                  v-if="$auth.loggedIn"
                   class="absolute right-2 top-2 cursor-pointer"
-                  @click="deleteModal()"
+                  @click="deleteComment(comment.id)"
                 />
                 <span class="font-extrabold">{{ comment.username }}</span>
                 <p class="text-xs text-gray-500">
@@ -54,7 +66,11 @@
           </div>
 
           <!-- Comment form -->
-          <form class="flex gap-x-4 p-4" @submit.prevent="commentPin">
+          <form
+            v-if="$auth.loggedIn"
+            class="flex items-center gap-x-4 p-4"
+            @submit.prevent="commentPin"
+          >
             <img
               class="w-14 rounded-full"
               src="https://i.pinimg.com/75x75_RS/cc/7d/cb/cc7dcb6084a47b14d532c0ecc49c9108.jpg"
@@ -67,28 +83,25 @@
               placeholder="Add a comment"
             />
             <input
-              class="mr-4 w-32 cursor-pointer self-end rounded-lg bg-green-600 px-3 py-3 text-white shadow-md"
+              class="m-auto w-32 cursor-pointer self-end rounded-lg bg-green-600 px-3 py-3 text-white shadow-md"
               type="submit"
               value="Send"
             />
           </form>
+          <div v-else class="mx-auto flex w-1/2 flex-col">
+            <p class="text-center text-gray-500">
+              You must be logged in to comment
+            </p>
+            <nuxt-link
+              :to="{ path: '/login' }"
+              class="rounded-lg bg-green-600 px-3 py-3 text-center text-white shadow-md hover:bg-green-600/75"
+            >
+              Login
+            </nuxt-link>
+          </div>
         </div>
       </article>
     </section>
-    <article
-      class="absolute inset-0 z-50 grid h-screen w-screen place-items-center overflow-hidden bg-[#2C394B]/75 transition-all"
-      :class="{ hidden: !openModal }"
-    >
-      <transition name="fade">
-        <Modal
-          v-if="openModal"
-          confirmation
-          message="Are you sure to delete?"
-          @onAction="deleteComment"
-          @closeModal="deleteModal"
-        />
-      </transition>
-    </article>
   </main>
 </template>
 
@@ -105,35 +118,64 @@ export default {
     myComment: '',
     openModal: false,
   }),
+
   computed: {
     pin() {
       return this.$store.getters.getSinglePin(this.$route.params.id)
     },
   },
+
+  created() {
+    this.checkIfLiked()
+  },
+
   methods: {
-    like() {
-      this.liked = !this.liked
+    checkIfLiked() {
+      if (this.pin.likes.length) {
+        const { username } = this.pin.likes.find((like) => {
+          return like.username === this.$auth.user
+        })
+
+        if (username === this.$auth.user) {
+          this.liked = true
+        }
+      }
     },
-    commentPin() {
-      this.$store.dispatch('commentPin', {
-        pin_id: this.$route.params.id,
+
+    async like() {
+      // console.log(this.pin)
+      this.liked = !this.liked
+
+      if (this.liked) {
+        this.$store.dispatch('likePin', this.pin)
+        setTimeout(() => {
+          this.$store.dispatch('fetchPins')
+        }, 100)
+        return
+      }
+
+      await this.$store.dispatch('unlikePin', this.pin)
+      setTimeout(() => {
+        this.$store.dispatch('fetchPins')
+      }, 100)
+    },
+
+    async commentPin() {
+      await this.$store.dispatch('commentPin', {
+        pin: this.$route.params.id,
         comment: this.myComment,
       })
       this.myComment = ''
-      this.$store.dispatch('fetchPins')
+      await this.$store.dispatch('fetchPins')
     },
-    deleteModal(id) {
-      this.myComment = id
-      this.openModal = !this.openModal
-    },
-    deleteComment() {
+    async deleteComment(id) {
       // eslint-disable-next-line no-console
       console.log(this.myComment)
-      this.$store.dispatch('deleteComment', {
-        pin_id: this.$route.params.id,
-        comment: this.myComment,
+      await this.$store.dispatch('deleteComment', {
+        pin: this.$route.params.id,
+        comment: id,
       })
-      this.$store.dispatch('fetchPins')
+      await this.$store.dispatch('fetchPins')
     },
   },
 }
