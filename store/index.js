@@ -18,7 +18,7 @@ export const actions = {
     try {
       const { error } = await this.$axios.post('/users/register/', payload)
 
-      commit('setStatusMsg', 'Registration successful!')
+      commit('setStatusMsg', 'User created successfully')
       setTimeout(() => {
         commit('resetRequest')
       }, 5000)
@@ -41,9 +41,12 @@ export const actions = {
       })
 
       this.$auth.setUser(data.user)
+      // eslint-disable-next-line no-console
+      // console.log(this.$auth.user)
+      // console.log(data.user)
 
       await this.$auth.setUserToken(data.access, data.refresh)
-      commit('setStatusMsg', 'Login successful')
+      commit('setStatusMsg', `Welcome back ${this.$auth.user.username}!`)
       setTimeout(() => {
         commit('resetRequest')
       }, 5000)
@@ -61,10 +64,7 @@ export const actions = {
   async userLogout({ commit }) {
     try {
       await this.$auth.logout()
-      commit('setStatusMsg', 'Logout successful')
-      setTimeout(() => {
-        commit('resetRequest')
-      }, 5000)
+
       this.$router.push('/login')
     } catch ({ response }) {
       commit('setErrorMsg', response.data.error)
@@ -78,8 +78,6 @@ export const actions = {
   async fetchPins({ commit }) {
     try {
       const { error, data } = await this.$axios.get('/pins/')
-      // eslint-disable-next-line no-console
-      // console.log(data)
 
       commit('setPins', data)
 
@@ -95,12 +93,13 @@ export const actions = {
   async createPin({ commit }, payload) {
     try {
       const { error } = await this.$axios.post('/pins/create/', payload)
-      // eslint-disable-next-line no-console
-      // console.log(data)
+
       commit('setStatusMsg', 'Pin created successfully')
       setTimeout(() => {
         commit('resetRequest')
       }, 5000)
+
+      commit('setRemoveImageInfo')
 
       this.$router.push('/')
       if (error) throw error
@@ -114,18 +113,10 @@ export const actions = {
 
   async commentPin({ commit }, payload) {
     try {
-      const { data, error } = await this.$axios.post(
+      const { error } = await this.$axios.post(
         `/pins/comment/${payload.pin}/`,
         payload
       )
-      // eslint-disable-next-line no-console
-      console.log(data)
-
-      commit('setStatusMsg', 'Comment created successfully')
-      setTimeout(() => {
-        commit('resetRequest')
-      }, 5000)
-      // this.$router.push('/')
       if (error) throw error
     } catch ({ response }) {
       commit('setErrorMsg', response.data.error)
@@ -143,7 +134,7 @@ export const actions = {
       // eslint-disable-next-line no-console
       // console.log(data)
 
-      commit('setStatusMsg', 'Comment deleted successfully')
+      commit('setStatusMsg', 'Comment deleted!')
       setTimeout(() => {
         commit('resetRequest')
       }, 5000)
@@ -166,10 +157,10 @@ export const actions = {
       // eslint-disable-next-line no-console
       // console.log(data)
 
-      commit('setStatusMsg', 'Pin liked successfully')
-      setTimeout(() => {
-        commit('resetRequest')
-      }, 5000)
+      // commit('setStatusMsg', 'Pin liked successfully')
+      // setTimeout(() => {
+      //   commit('resetRequest')
+      // }, 5000)
       // this.$router.push('/')
       if (error) throw error
     } catch ({ response }) {
@@ -182,18 +173,17 @@ export const actions = {
 
   async unlikePin({ commit }, payload) {
     try {
-      const { data, error } = await this.$axios.delete(
-        `/pins/like/${payload.id}/`,
-        { data: payload }
-      )
+      const { error } = await this.$axios.delete(`/pins/like/${payload.id}/`, {
+        data: payload,
+      })
 
       // eslint-disable-next-line no-console
-      console.log(data)
+      // console.log(data)
 
-      commit('setStatusMsg', 'Pin unliked successfully')
-      setTimeout(() => {
-        commit('resetRequest')
-      }, 5000)
+      // commit('setStatusMsg', 'Pin unliked successfully')
+      // setTimeout(() => {
+      //   commit('resetRequest')
+      // }, 5000)
       // this.$router.push('/')
       if (error) throw error
     } catch (error) {
@@ -208,12 +198,10 @@ export const actions = {
 
   async uploadImage({ commit }, payload) {
     try {
-      const { data, error } = await this.$supabase.storage
+      const { error } = await this.$supabase.storage
         .from('test-bucket')
         .upload(payload.filename, payload.file)
       // eslint-disable-next-line no-console
-
-      console.log(data)
 
       commit('setStatusMsg', 'Image uploaded successfully')
       setTimeout(() => {
@@ -227,12 +215,35 @@ export const actions = {
         commit('resetRequest')
       }, 5000)
     }
+
+    // Get the Public URL for the uploaded file
     try {
       const { publicURL, error } = await this.$supabase.storage
         .from('test-bucket')
         .getPublicUrl(payload.filename)
 
-      console.log(publicURL)
+      commit('setImageInfo', publicURL)
+      if (error) throw error
+    } catch (error) {
+      commit('setErrorMsg', error)
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+    }
+  },
+
+  async deleteUpload({ commit }, payload) {
+    try {
+      const { error } = await this.$supabase.storage
+        .from('test-bucket')
+        .remove([payload.filename])
+
+      commit('setRemoveImageInfo')
+
+      commit('setStatusMsg', 'Image deleted successfully')
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
       if (error) throw error
     } catch (error) {
       commit('setErrorMsg', error)
@@ -260,14 +271,15 @@ export const mutations = {
     state.request.status = 'success'
   },
 
+  setRemoveImageInfo: (state) => {
+    state.image = ''
+    state.request.message = 'Image deleted successfully!'
+    state.request.status = 'success'
+  },
+
   resetRequest: (state) => {
     state.request.message = null
     state.request.status = null
-  },
-
-  setDeleteUploadedImage: (state, payload) => {
-    state.request.message = payload
-    state.request.status = 'success'
   },
 
   setStatusMsg: (state, payload) => {

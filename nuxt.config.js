@@ -78,10 +78,13 @@ export default {
           login: {
             url: 'users/token/',
             method: 'post',
-            propertyName: 'token',
+            propertyName: 'access',
           },
           logout: { url: 'users/logout/', method: 'post' },
-          user: { url: 'users/', method: 'get', property: false },
+          user: { url: 'users/', method: 'get' },
+        },
+        user: {
+          property: false,
         },
       },
     },

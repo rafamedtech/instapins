@@ -1,24 +1,34 @@
 <template>
   <main class="container">
     <section
-      class="container relative flex h-full flex-col rounded-[32px] p-4 shadow-pinterest md:flex-row"
+      class="relative mx-2 mb-5 flex h-full flex-col rounded-[32px] p-4 shadow-pinterest md:mx-4 md:flex-row"
     >
       <figure
         class="mb-4 h-full overflow-hidden rounded-[16px] shadow-pinterest md:mb-0 md:w-1/2"
       >
         <img class="w-full" :src="pin.url" alt="" />
       </figure>
-      <div class="absolute right-4 top-4 z-50 flex flex-col items-center">
+      <div
+        class="relative z-50 mb-4 flex flex-col items-center md:absolute md:right-4 md:top-4"
+      >
         <Heart
+          v-if="$auth.loggedIn"
           :size="48"
           :fill-color="liked ? 'red' : 'gray'"
-          class="cursor-pointer"
+          class="cursor-pointer text-white"
           @click="like"
         />
+        <button v-else title="You must be logged in to like pins">
+          <Heart
+            :size="48"
+            fill-color="gray"
+            class="cursor-not-allowed text-white"
+          />
+        </button>
         <span class="text-sm text-gray-600">{{ pin.likes.length }}</span>
       </div>
       <article
-        class="flex flex-col items-center justify-between gap-y-8 px-4 md:w-1/2"
+        class="flex flex-col items-center justify-between gap-y-8 md:w-1/2 md:px-4"
       >
         <div
           class="flex flex-col items-center justify-between gap-y-8 px-4 md:w-1/2"
@@ -26,11 +36,11 @@
           <h1 class="w-[20ch] text-center text-3xl text-[#5481bb]">
             {{ pin.title }}
           </h1>
-          <span class="text-sm text-gray-500"
+          <span class="text-center text-sm text-gray-500"
             >Uploaded by
             <span class="text-green-600">{{ pin.owner }}</span></span
           >
-          <p class="w-2/3 px-4 text-xs md:w-[50ch]">
+          <p class="w-full px-8 text-xs md:w-[50ch]">
             {{ pin.description }}
           </p>
         </div>
@@ -38,23 +48,24 @@
           <h2 class="ml-4 mb-2 text-center text-2xl font-bold text-[#5481bb]">
             Comments
           </h2>
-          <div
-            v-for="comment in pin.comments"
-            :key="comment.id"
-            class="flex flex-col"
-          >
-            <section class="flex w-full items-center gap-x-4 p-4">
+
+          <div v-if="pin.comments.length" class="flex flex-col">
+            <section
+              v-for="comment in pin.comments"
+              :key="comment.id"
+              class="flex w-full items-center gap-x-4 p-4"
+            >
               <img
                 class="w-14 rounded-full"
-                src="https://i.pinimg.com/75x75_RS/cc/7d/cb/cc7dcb6084a47b14d532c0ecc49c9108.jpg"
+                src="https://images.unsplash.com/photo-1558981402-d8f9c7e9d9e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80"
                 alt=""
               />
               <article
-                class="relative w-full rounded-[16px] border border-gray-400 p-4 text-gray-500"
+                class="group relative w-full rounded-[16px] border border-gray-400 p-4 text-gray-500"
               >
                 <Close
                   v-if="$auth.loggedIn"
-                  class="absolute right-2 top-2 cursor-pointer"
+                  class="absolute right-2 top-2 hidden cursor-pointer group-hover:block"
                   @click="deleteComment(comment.id)"
                 />
                 <span class="font-extrabold">{{ comment.username }}</span>
@@ -64,37 +75,46 @@
               </article>
             </section>
           </div>
+          <div v-else>
+            <p class="ml-4 mb-2 text-center text-gray-400">No comments yet</p>
+          </div>
+
+          <hr class="ml-4 mb-2 divide-x-2" />
 
           <!-- Comment form -->
           <form
             v-if="$auth.loggedIn"
-            class="flex items-center gap-x-4 p-4"
+            class="flex w-full flex-wrap items-center justify-evenly gap-4 md:justify-start md:gap-2 md:p-4 lg:flex-nowrap"
             @submit.prevent="commentPin"
           >
             <img
-              class="w-14 rounded-full"
-              src="https://i.pinimg.com/75x75_RS/cc/7d/cb/cc7dcb6084a47b14d532c0ecc49c9108.jpg"
+              class="h-16 w-16 rounded-full object-cover"
+              :src="$auth.user.avatar"
               alt=""
             />
             <input
               v-model="myComment"
-              class="w-full rounded-[16px] border border-gray-400 p-4"
+              class="w-auto rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
               type="text"
               placeholder="Add a comment"
             />
             <input
-              class="m-auto w-32 cursor-pointer self-end rounded-lg bg-green-600 px-3 py-3 text-white shadow-md"
+              class="m-auto w-32 cursor-pointer self-end rounded-lg bg-green-600 px-3 py-3 text-white shadow-md disabled:cursor-not-allowed disabled:bg-gray-400"
               type="submit"
               value="Send"
+              :disabled="!myComment"
+              :title="!myComment ? 'Please enter a comment' : 'Send comment'"
             />
           </form>
+
+          <!-- If the user is not logged in -->
           <div v-else class="mx-auto flex w-1/2 flex-col">
-            <p class="text-center text-gray-500">
+            <p class="ml-4 mb-2 text-center text-gray-500">
               You must be logged in to comment
             </p>
             <nuxt-link
               :to="{ path: '/login' }"
-              class="rounded-lg bg-green-600 px-3 py-3 text-center text-white shadow-md hover:bg-green-600/75"
+              class="ml-4 mb-2 rounded-lg bg-green-600 px-3 py-3 text-center text-white shadow-md hover:bg-green-600/75"
             >
               Login
             </nuxt-link>
@@ -108,9 +128,11 @@
 <script>
 import HeartOutline from 'icons/HeartOutline.vue'
 import Close from 'icons/Close.vue'
+
 export default {
   components: {
     Heart: HeartOutline,
+
     Close,
   },
   data: () => ({
@@ -131,13 +153,15 @@ export default {
 
   methods: {
     checkIfLiked() {
-      if (this.pin.likes.length) {
-        const { username } = this.pin.likes.find((like) => {
-          return like.username === this.$auth.user
-        })
+      if (this.$auth.user) {
+        if (this.pin.likes.length) {
+          const { username } = this.pin.likes.find((like) => {
+            return like.username === this.$auth.user.username
+          })
 
-        if (username === this.$auth.user) {
-          this.liked = true
+          if (username === this.$auth.user.username) {
+            this.liked = true
+          }
         }
       }
     },

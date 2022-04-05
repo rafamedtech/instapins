@@ -2,7 +2,9 @@
   <div>
     <Header />
     <Notification v-if="request.status" :request="request" />
-    <Nuxt />
+    <transition name="slide-fade">
+      <Nuxt />
+    </transition>
   </div>
 </template>
 

@@ -18,7 +18,6 @@ export default {
   methods: {
     onChangeFile(e) {
       this.file = e.target.files[0]
-      //   eslint-disable-next-line no-console
     },
     upload() {
       return this.$store.dispatch('uploadImage', {
