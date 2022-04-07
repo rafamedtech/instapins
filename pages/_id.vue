@@ -1,5 +1,11 @@
 <template>
   <main class="container">
+    <button
+      class="mx-4 mb-6 flex gap-x-2 text-gray-500"
+      @click="$router.go(-1)"
+    >
+      <BackIcon fill-color="#5481bb" /> Back
+    </button>
     <section
       class="relative mx-2 mb-5 flex h-full flex-col rounded-[32px] p-4 shadow-pinterest md:mx-4 md:flex-row"
     >
@@ -12,19 +18,16 @@
         class="relative z-50 mb-4 flex flex-col items-center md:absolute md:right-4 md:top-4"
       >
         <Heart
-          v-if="$auth.loggedIn"
           :size="48"
           :fill-color="liked ? 'red' : 'gray'"
-          class="cursor-pointer text-white"
-          @click="like"
+          class="text-white"
+          :class="$auth.loggedIn ? 'cursor-pointer' : 'cursor-not-allowed'"
+          :title="
+            $auth.loggedIn ? 'Like' : 'You must be logged in to like pins'
+          "
+          @click="$auth.loggedIn ? like() : null"
         />
-        <button v-else title="You must be logged in to like pins">
-          <Heart
-            :size="48"
-            fill-color="gray"
-            class="cursor-not-allowed text-white"
-          />
-        </button>
+
         <span class="text-sm text-gray-600">{{ pin.likes.length }}</span>
       </div>
       <article
@@ -128,11 +131,12 @@
 <script>
 import HeartOutline from 'icons/HeartOutline.vue'
 import Close from 'icons/Close.vue'
+import ArrowLeft from 'icons/ArrowLeft.vue'
 
 export default {
   components: {
     Heart: HeartOutline,
-
+    BackIcon: ArrowLeft,
     Close,
   },
   data: () => ({

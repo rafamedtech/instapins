@@ -1,5 +1,11 @@
 <template>
   <main class="container">
+    <button
+      class="mx-4 mb-6 flex gap-x-2 text-gray-500"
+      @click="$router.go(-1)"
+    >
+      <BackIcon fill-color="#5481bb" /> Back
+    </button>
     <section
       class="mx-2 flex h-auto min-h-[500px] flex-col rounded-[32px] p-4 shadow-pinterest md:mx-4 md:flex-row md:gap-x-8"
     >
@@ -114,12 +120,14 @@
 import ImageOffOutline from 'icons/ImageOffOutline.vue'
 import TrayArrowUp from 'icons/TrayArrowUp.vue'
 import CloseCircle from 'icons/CloseCircle.vue'
+import ArrowLeft from 'icons/ArrowLeft.vue'
 
 export default {
   components: {
     ImageOff: ImageOffOutline,
     UploadIcon: TrayArrowUp,
     Close: CloseCircle,
+    BackIcon: ArrowLeft,
   },
   data: () => ({
     pin: {

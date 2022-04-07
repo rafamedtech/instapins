@@ -18,7 +18,7 @@
         <nuxt-link
           v-if="$route.path !== '/new' && $auth.user"
           :to="{ path: '/new' }"
-          class="w-auto rounded-lg bg-green-600 px-3 py-3 text-center text-white shadow-md"
+          class="h-12 w-auto rounded-lg bg-green-600 px-3 py-3 text-center text-white shadow-md"
         >
           New Pin
         </nuxt-link>

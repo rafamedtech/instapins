@@ -14,20 +14,95 @@
     >
       {{ pin.title }}
     </p>
-    <button
-      class="absolute top-2 right-2 hidden self-start rounded-lg border border-red-500 p-1 text-red-500 transition-all duration-300 hover:bg-red-500 hover:text-white group-hover:block"
+
+    <div
+      v-if="$auth.loggedIn"
+      class="absolute top-2 right-2 hidden self-start group-hover:block"
     >
-      Delete
+      <button
+        v-if="$auth.user.username === pin.owner && $route.path === '/profile'"
+        class="rounded-lg p-1 text-white transition-all duration-300 hover:bg-green-500"
+      >
+        <Edit :size="32" />
+      </button>
+      <button
+        v-if="$auth.user.username === pin.owner && $route.path === '/profile'"
+        class="rounded-lg p-1 text-white transition-all duration-300 hover:bg-red-500"
+      >
+        <Delete :size="32" />
+      </button>
+    </div>
+
+    <button
+      v-if="$route.path !== '/profile'"
+      class="absolute top-2 right-2 hidden self-start rounded-lg p-1 transition-all duration-300 hover:text-white group-hover:block"
+    >
+      <Heart
+        :size="48"
+        :fill-color="liked ? 'red' : 'gray'"
+        class="text-white"
+        :class="$auth.loggedIn ? 'cursor-pointer' : 'cursor-not-allowed'"
+        :title="$auth.loggedIn ? 'Like' : 'You must be logged in to like pins'"
+        @click="$auth.loggedIn ? like() : null"
+      />
     </button>
   </div>
 </template>
 
 <script>
+import HeartOutline from 'icons/HeartOutline.vue'
+import DeleteEmpty from 'icons/DeleteEmpty.vue'
+import LeadPencil from 'icons/LeadPencil.vue'
 export default {
+  components: {
+    Heart: HeartOutline,
+    Delete: DeleteEmpty,
+    Edit: LeadPencil,
+  },
   props: {
     pin: {
       type: Object,
       required: true,
+    },
+  },
+  data: () => ({
+    liked: false,
+  }),
+
+  created() {
+    this.checkIfLiked()
+  },
+
+  methods: {
+    checkIfLiked() {
+      if (this.$auth.user) {
+        if (this.pin.likes.length) {
+          const { username } = this.pin.likes.find((like) => {
+            return like.username === this.$auth.user.username
+          })
+
+          if (username === this.$auth.user.username) {
+            this.liked = true
+          }
+        }
+      }
+    },
+    async like() {
+      // console.log(this.pin)
+      this.liked = !this.liked
+
+      if (this.liked) {
+        this.$store.dispatch('likePin', this.pin)
+        setTimeout(() => {
+          this.$store.dispatch('fetchPins')
+        }, 100)
+        return
+      }
+
+      await this.$store.dispatch('unlikePin', this.pin)
+      setTimeout(() => {
+        this.$store.dispatch('fetchPins')
+      }, 100)
     },
   },
 }
