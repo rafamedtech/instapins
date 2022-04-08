@@ -29,7 +29,7 @@
         v-if="$auth.user.username === pin.owner && $route.path === '/profile'"
         class="rounded-lg p-1 text-white transition-all duration-300 hover:bg-red-500"
       >
-        <Delete :size="32" />
+        <Delete :size="32" @click="deletePin" />
       </button>
     </div>
 
@@ -77,12 +77,18 @@ export default {
     checkIfLiked() {
       if (this.$auth.user) {
         if (this.pin.likes.length) {
-          const { username } = this.pin.likes.find((like) => {
-            return like.username === this.$auth.user.username
-          })
+          if (
+            this.pin.likes.find((like) => {
+              return like.username === this.$auth.user.username
+            })
+          ) {
+            const { username } = this.pin.likes.find((like) => {
+              return like.username === this.$auth.user.username
+            })
 
-          if (username === this.$auth.user.username) {
-            this.liked = true
+            if (username === this.$auth.user.username) {
+              this.liked = true
+            }
           }
         }
       }
@@ -100,6 +106,13 @@ export default {
       }
 
       await this.$store.dispatch('unlikePin', this.pin)
+      setTimeout(() => {
+        this.$store.dispatch('fetchPins')
+      }, 100)
+    },
+
+    deletePin() {
+      this.$store.dispatch('deletePin', this.pin.id)
       setTimeout(() => {
         this.$store.dispatch('fetchPins')
       }, 100)

@@ -5,15 +5,7 @@
     <nuxt-link :to="{ path: '/' }" class="logo text-5xl text-gray-500"
       >My unsplash</nuxt-link
     >
-    <div class="flex flex-col gap-x-4 gap-y-2 md:flex-row">
-      <div v-if="$route.path === '/'" class="relative flex items-center">
-        <SearchIcon class="absolute mx-2" fill-color="gray" />
-        <input
-          class="h-10 rounded-lg border border-gray-400 bg-transparent py-6 pl-8 pr-4 placeholder:pl-2 focus:outline-none focus:ring-1 focus:ring-gray-500"
-          type="text"
-          placeholder="Search by name"
-        />
-      </div>
+    <div class="flex flex-col-reverse gap-x-4 gap-y-2 md:flex-row">
       <div class="flex w-[250px] justify-around gap-x-4 md:w-auto">
         <nuxt-link
           v-if="$route.path !== '/new' && $auth.user"
@@ -34,9 +26,13 @@
           class="group relative h-12 w-12 rounded-full md:w-12"
         >
           <img
-            class="h-full w-full rounded-full object-cover"
-            :src="$auth.user.avatar"
-            alt=""
+            class="h-full w-full rounded-full bg-gray-200 object-cover p-1"
+            :src="
+              $auth.user.avatar
+                ? $auth.user.avatar
+                : require('@/assets/user-default.png')
+            "
+            :alt="$auth.user.username"
           />
           <div
             class="invisible absolute -bottom-24 -left-28 z-50 m-4 rounded-lg bg-white py-4 px-8 shadow-pinterest transition-all group-hover:visible"
@@ -79,11 +75,7 @@
 </template>
 
 <script>
-import Magnify from 'icons/Magnify.vue'
 export default {
-  components: {
-    SearchIcon: Magnify,
-  },
   data: () => ({
     openModal: false,
   }),

@@ -82,8 +82,8 @@ export const actions = {
       commit('setPins', data)
 
       if (error) throw error
-    } catch ({ response }) {
-      commit('setErrorMsg', response.data.error)
+    } catch (error) {
+      commit('setErrorMsg', error)
       setTimeout(() => {
         commit('resetRequest')
       }, 5000)
@@ -100,6 +100,25 @@ export const actions = {
       }, 5000)
 
       commit('setRemoveImageInfo')
+
+      this.$router.push('/')
+      if (error) throw error
+    } catch ({ response }) {
+      commit('setErrorMsg', response.data.error)
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+    }
+  },
+
+  async deletePin({ commit }, payload) {
+    try {
+      const { error } = await this.$axios.delete(`/pins/delete/${payload}/`)
+
+      commit('setStatusMsg', 'Pin deleted successfully')
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
 
       this.$router.push('/')
       if (error) throw error
@@ -244,6 +263,43 @@ export const actions = {
       setTimeout(() => {
         commit('resetRequest')
       }, 5000)
+      if (error) throw error
+    } catch (error) {
+      commit('setErrorMsg', error)
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+    }
+  },
+
+  async uploadAvatar({ commit }, payload) {
+    try {
+      const { error } = await this.$supabase.storage
+        .from('test-bucket')
+        .upload(payload.filename, payload.file)
+      // eslint-disable-next-line no-console
+
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+      // this.$router.push('/')
+      if (error) throw error
+    } catch (error) {
+      commit('setErrorMsg', error)
+      setTimeout(() => {
+        commit('resetRequest')
+      }, 5000)
+    }
+
+    try {
+      const { data, error } = await this.$axios.put('/users/', {
+        avatar: `https://kkacmmdynlmnvnvjismq.supabase.co/storage/v1/object/public/test-bucket/${payload.filename}`,
+      })
+      // eslint-disable-next-line no-console
+      // console.log(data)
+      commit('setStatusMsg', data.message)
+
+      await this.$auth.fetchUser()
       if (error) throw error
     } catch (error) {
       commit('setErrorMsg', error)
