@@ -20,9 +20,6 @@
       <article
         class="mx-auto w-full items-center justify-center rounded-xl md:my-10 md:w-[400px] md:py-0"
       >
-        <!-- class="mx-auto my-10 h-[469px] w-[402px] flex-col rounded-xl bg-white shadow-pinterest" -->
-        <!-- :class="request.status === 'success' ? 'pb-9 pt-4' : 'py-9'" -->
-        <!-- <Dropzone /> -->
         <figure
           v-if="uploadedImage || pin.image"
           class="h-full w-full overflow-hidden rounded-xl py-4"
@@ -129,6 +126,9 @@ export default {
     Close: CloseCircle,
     BackIcon: ArrowLeft,
   },
+
+  middleware: 'auth',
+
   data: () => ({
     pin: {
       title: '',
@@ -138,14 +138,16 @@ export default {
     isLoading: false,
     modalMsg: '',
   }),
+
   computed: {
     request() {
       return this.$store.getters.getRequest
     },
     uploadedImage() {
-      return this.$store.getters.getImage
+      return this.$store.getters['pins/getImage']
     },
   },
+
   methods: {
     createPin() {
       const formData = new FormData()
@@ -157,7 +159,7 @@ export default {
         formData.append('url', this.pin.image)
       }
 
-      this.$store.dispatch('createPin', formData)
+      this.$store.dispatch('pins/createPin', formData)
     },
 
     onUpload(e) {
@@ -185,8 +187,7 @@ export default {
         'https://kkacmmdynlmnvnvjismq.supabase.co/storage/v1/object/public/test-bucket/',
         ''
       )
-      // eslint-disable-next-line no-console
-      // console.log(url)
+
       this.modalMsg = 'Deleting image...'
       this.isLoading = true
 

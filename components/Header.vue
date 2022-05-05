@@ -8,11 +8,40 @@
     <div class="flex flex-col-reverse gap-x-4 gap-y-2 md:flex-row">
       <div class="flex w-[250px] justify-around gap-x-4 md:w-auto">
         <nuxt-link
-          v-if="$route.path !== '/new' && $auth.user"
-          :to="{ path: '/new' }"
-          class="h-12 w-auto rounded-lg bg-green-600 px-3 py-3 text-center text-white shadow-md"
+          :to="{ path: '/' }"
+          class="relative flex flex-col justify-center"
+          :class="{ 'text-[#5481bb]': $route.path === '/' }"
         >
-          New Pin
+          <HomeIcon
+            :size="36"
+            :fill-color="$route.path === '/' ? '#5481bb' : 'gray'"
+          />
+        </nuxt-link>
+        <nuxt-link
+          v-if="$auth.loggedIn"
+          :to="{ path: '/new' }"
+          class="relative flex flex-col justify-center"
+        >
+          <NewPin
+            :size="36"
+            :fill-color="$route.path === '/new' ? '#5481bb' : 'gray'"
+          />
+        </nuxt-link>
+        <nuxt-link
+          v-if="$auth.loggedIn"
+          :to="{ path: '/messages' }"
+          class="relative flex flex-col justify-center"
+        >
+          <!-- <span
+            v-if="messages.length > 0"
+            class="absolute -top-1 -right-2 h-6 w-6 rounded-full bg-red-500 text-center text-white"
+            >{{ messages.length }}</span
+          > -->
+
+          <Messages
+            :size="36"
+            :fill-color="$route.path === '/messages' ? '#5481bb' : 'gray'"
+          />
         </nuxt-link>
         <nuxt-link
           v-if="!$auth.user && $route.path !== '/login'"
@@ -23,10 +52,11 @@
         </nuxt-link>
         <figure
           v-if="$auth.loggedIn"
-          class="group relative h-12 w-12 rounded-full md:w-12"
+          class="group relative h-10 w-10 rounded-full"
         >
           <img
-            class="h-full w-full rounded-full bg-gray-200 object-cover p-1"
+            class="h-full w-full rounded-full object-cover p-1"
+            :class="$route.path === '/profile' ? 'bg-[#5481bb]' : 'bg-gray-200'"
             :src="
               $auth.user.avatar
                 ? $auth.user.avatar
@@ -75,9 +105,22 @@
 </template>
 
 <script>
+import MessageProcessingOutline from 'icons/MessageProcessingOutline.vue'
+import ImagePlus from 'icons/ImagePlus.vue'
+import Home from 'icons/Home.vue'
 export default {
+  components: {
+    Messages: MessageProcessingOutline,
+    NewPin: ImagePlus,
+    HomeIcon: Home,
+  },
   data: () => ({
     openModal: false,
+    messages: [
+      {
+        name: 'paty',
+      },
+    ],
   }),
   methods: {
     logoutModal() {

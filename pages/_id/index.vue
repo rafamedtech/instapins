@@ -58,11 +58,11 @@
               :key="comment.id"
               class="flex w-full items-center gap-x-4 p-4"
             >
-              <img
+              <!-- <img
                 class="w-14 rounded-full"
                 src="https://images.unsplash.com/photo-1558981402-d8f9c7e9d9e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80"
                 alt=""
-              />
+              /> -->
               <article
                 class="group relative w-full rounded-[16px] border border-gray-400 p-4 text-gray-500"
               >
@@ -147,63 +147,58 @@ export default {
 
   computed: {
     pin() {
-      return this.$store.getters.getSinglePin(this.$route.params.id)
+      return this.$store.getters['pins/getSinglePin'](this.$route.params.id)
     },
   },
 
-  created() {
-    this.checkIfLiked()
+  mounted() {
+    if (this.$auth.loggedIn) {
+      this.checkIfLiked()
+    }
   },
 
   methods: {
     checkIfLiked() {
-      if (this.$auth.user) {
-        if (this.pin.likes.length) {
-          const { username } = this.pin.likes.find((like) => {
-            return like.username === this.$auth.user.username
-          })
-
-          if (username === this.$auth.user.username) {
-            this.liked = true
-          }
-        }
+      if (this.pin.likes.length) {
+        this.liked = this.pin.likes.some((like) => {
+          return like.username === this.$auth.user.username
+        })
       }
     },
 
     async like() {
-      // console.log(this.pin)
       this.liked = !this.liked
 
       if (this.liked) {
-        this.$store.dispatch('likePin', this.pin)
+        this.$store.dispatch('pins/likePin', this.pin)
         setTimeout(() => {
-          this.$store.dispatch('fetchPins')
+          this.$store.dispatch('pins/fetchPins')
         }, 100)
         return
       }
 
-      await this.$store.dispatch('unlikePin', this.pin)
+      await this.$store.dispatch('pins/unlikePin', this.pin)
       setTimeout(() => {
-        this.$store.dispatch('fetchPins')
+        this.$store.dispatch('pins/fetchPins')
       }, 100)
     },
 
     async commentPin() {
-      await this.$store.dispatch('commentPin', {
+      await this.$store.dispatch('pins/commentPin', {
         pin: this.$route.params.id,
         comment: this.myComment,
       })
       this.myComment = ''
-      await this.$store.dispatch('fetchPins')
+      await this.$store.dispatch('pins/fetchPins')
     },
     async deleteComment(id) {
       // eslint-disable-next-line no-console
       console.log(this.myComment)
-      await this.$store.dispatch('deleteComment', {
+      await this.$store.dispatch('pins/deleteComment', {
         pin: this.$route.params.id,
         comment: id,
       })
-      await this.$store.dispatch('fetchPins')
+      await this.$store.dispatch('pins/fetchPins')
     },
   },
 }

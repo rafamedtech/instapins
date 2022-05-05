@@ -23,7 +23,9 @@
         v-if="$auth.user.username === pin.owner && $route.path === '/profile'"
         class="rounded-lg p-1 text-white transition-all duration-300 hover:bg-green-500"
       >
-        <Edit :size="32" />
+        <nuxt-link :to="`/${pin.id}/edit/`">
+          <Edit :size="32" />
+        </nuxt-link>
       </button>
       <button
         v-if="$auth.user.username === pin.owner && $route.path === '/profile'"
@@ -98,24 +100,25 @@ export default {
       this.liked = !this.liked
 
       if (this.liked) {
-        this.$store.dispatch('likePin', this.pin)
+        this.$store.dispatch('pins/likePin', this.pin)
         setTimeout(() => {
-          this.$store.dispatch('fetchPins')
+          this.$store.dispatch('pins/fetchPins')
         }, 100)
         return
       }
 
-      await this.$store.dispatch('unlikePin', this.pin)
+      await this.$store.dispatch('pins/unlikePin', this.pin)
       setTimeout(() => {
-        this.$store.dispatch('fetchPins')
+        this.$store.dispatch('pins/fetchPins')
       }, 100)
     },
 
     deletePin() {
-      this.$store.dispatch('deletePin', this.pin.id)
-      setTimeout(() => {
-        this.$store.dispatch('fetchPins')
-      }, 100)
+      this.$store.dispatch('pins/deletePin', this.pin.id)
+
+      // setTimeout(() => {
+      //   this.$store.dispatch('pins/fetchPins')
+      // }, 100)
     },
   },
 }
