@@ -1,7 +1,7 @@
 <template>
   <main class="mx-auto min-h-full max-w-[768px] px-4 py-10">
     <!-- Register Form -->
-    <h1 class="mb-4 text-3xl text-green-500">Register</h1>
+    <h1 class="mb-4 text-3xl text-primary">Register</h1>
     <form
       class="flex flex-col gap-6 rounded-2xl bg-white p-12 shadow-pinterest md:flex-row"
       @submit.prevent="userRegister"
@@ -22,7 +22,7 @@
             id="username"
             v-model="username"
             type="text"
-            class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-blue-500"
+            class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-primary"
             required
           />
         </section>
@@ -32,7 +32,7 @@
             id="email"
             v-model="email"
             type="email"
-            class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-blue-500"
+            class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-primary"
             required
           />
         </section>
@@ -45,7 +45,7 @@
             id="password"
             v-model="password"
             type="password"
-            class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-blue-500"
+            class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-primary"
             required
           />
         </section>
@@ -58,7 +58,7 @@
             id="confirmPassword"
             v-model="confirmPassword"
             type="password"
-            class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-blue-500"
+            class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-primary"
             required
           />
         </section>
@@ -66,7 +66,7 @@
         <input
           type="submit"
           value="Register"
-          class="my-6 mx-auto block cursor-pointer self-center rounded-sm border-2 border-solid border-transparent bg-blue-500 py-2 px-6 text-sm text-white duration-200 hover:border-blue-500 hover:bg-blue-500 focus:outline-blue-500"
+          class="my-6 mx-auto block cursor-pointer self-center rounded-sm border-2 border-solid border-transparent bg-primary py-2 px-6 text-sm text-white duration-200 hover:border-primary hover:bg-primary focus:outline-primary"
         />
         <nuxt-link
           class="mx-auto mt-6 block w-full text-center text-sm"

@@ -2,6 +2,10 @@ export const state = () => ({
   image: null,
   comments: [],
   pins: [],
+  request: {
+    message: null,
+    status: null,
+  },
 })
 
 export const actions = {
@@ -13,8 +17,8 @@ export const actions = {
       commit('setPins', data)
 
       if (error) throw error
-    } catch ({ response }) {
-      commit('setErrorMsg', response.data.error, { root: true })
+    } catch (error) {
+      commit('setErrorMsg', error, { root: true })
       setTimeout(() => {
         commit('resetRequest', { root: true })
       }, 5000)
@@ -31,7 +35,7 @@ export const actions = {
         commit('resetRequest', null, { root: true })
       }, 5000)
 
-      // commit('setRemoveImageInfo')
+      commit('setRemoveImageInfo')
       this.$router.push('/')
 
       if (error) throw error

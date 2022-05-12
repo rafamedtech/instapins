@@ -6,7 +6,7 @@
     >
       <BackIcon fill-color="#5481bb" /> Back
     </button>
-    <h1 class="mb-5 ml-2 text-4xl text-gray-500 md:ml-4">My Profile</h1>
+    <h1 class="mb-5 ml-2 text-4xl text-primary md:ml-4">My Profile</h1>
     <section
       class="mb-8 flex max-w-xl flex-col items-center rounded-[32px] p-4 shadow-pinterest md:mx-auto md:flex-row md:justify-evenly"
     >
@@ -51,32 +51,32 @@
         class="mb-8 flex h-full w-full flex-col justify-center gap-y-4 text-center md:w-fit md:gap-y-8 md:text-left"
       >
         <div>
-          <i class="text-blue-500">Username</i>
+          <i class="text-primary">Username</i>
           <p class="text-3xl text-gray-500 md:text-4xl">
             {{ $auth.user.username }}
           </p>
         </div>
         <div>
-          <i class="text-blue-500">Email</i>
+          <i class="text-primary">Email</i>
           <p class="text-gray-500 md:text-xl">{{ $auth.user.email }}</p>
         </div>
         <div>
           <p class="text-gray-500 md:text-xl">
-            (<span class="text-blue-500">{{ myPins.length }}</span
+            (<span class="text-primary">{{ myPins.length }}</span
             >) Pins
           </p>
         </div>
       </article>
     </section>
-    <h2 class="mb-5 ml-2 text-3xl text-gray-500 md:ml-4">My pins</h2>
+    <h2 class="mb-5 ml-2 text-3xl text-primary md:ml-4">My pins</h2>
     <section
       v-if="myPins.length"
       class="container columns-2 gap-2 space-y-2 px-2 pb-28 md:columns-3 md:gap-4 md:space-y-4 md:px-4 lg:columns-4 lg:gap-6 lg:space-y-6 lg:px-4"
     >
       <PinCard v-for="(pin, index) in myPins" :key="index" :pin="pin" />
     </section>
-    <h2 class="mb-5 ml-2 text-3xl text-gray-500 md:ml-4">
-      My liked pins (<span class="text-blue-500">{{ myLikedPins.length }}</span
+    <h2 class="mb-5 ml-2 text-3xl text-primary md:ml-4">
+      My liked pins (<span class="text-gray-500">{{ myLikedPins.length }}</span
       >)
     </h2>
     <section

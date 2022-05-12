@@ -54,7 +54,7 @@
           <input
             type="submit"
             value="Update pin"
-            class="cursor-pointer rounded-lg bg-green-600 px-3 py-3 text-white shadow-md hover:bg-green-600/75"
+            class="cursor-pointer rounded-lg bg-primary px-3 py-3 text-white shadow-md hover:bg-primary/75"
           />
         </div>
       </form>

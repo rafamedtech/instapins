@@ -21,7 +21,7 @@
     >
       <button
         v-if="$auth.user.username === pin.owner && $route.path === '/profile'"
-        class="rounded-lg p-1 text-white transition-all duration-300 hover:bg-green-500"
+        class="rounded-lg p-1 text-white transition-all duration-300 hover:bg-primary"
       >
         <nuxt-link :to="`/${pin.id}/edit/`">
           <Edit :size="32" />

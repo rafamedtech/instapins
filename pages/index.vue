@@ -3,7 +3,7 @@
     <section
       class="container mb-4 flex flex-col items-center gap-y-4 md:mb-8 md:flex-row md:justify-between md:px-4 lg:p-0"
     >
-      <h1 class="text-4xl text-[#5481bb]">All Pins</h1>
+      <h1 class="text-4xl text-primary">All Pins</h1>
       <SearchBar v-if="$route.path === '/'" @search="searchPins" />
     </section>
 
@@ -20,21 +20,25 @@
       v-else
       class="container grid place-items-center px-2 pb-28 md:px-4 lg:px-0"
     >
-      <i class="text-2xl text-gray-500">No pins yet</i>
+      <i class="text-2xl text-gray-500">No pins found</i>
     </div>
   </main>
 </template>
 
 <script>
 export default {
+  data: () => ({
+    pins: [],
+  }),
   computed: {
-    pins() {
+    getPins() {
       return this.$store.getters['pins/getPins']
     },
   },
 
-  mounted() {
-    this.$store.dispatch('pins/fetchPins')
+  async mounted() {
+    await this.$store.dispatch('pins/fetchPins')
+    this.pins = this.getPins
   },
 
   methods: {

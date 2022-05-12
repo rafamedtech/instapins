@@ -39,7 +39,7 @@
         </figure>
         <div
           v-else
-          class="flex h-full w-full flex-col items-center justify-center gap-y-4 rounded-xl border-2 border-dashed border-[#97BEF4] bg-[#F6F8FB] py-4"
+          class="flex h-full w-full flex-col items-center justify-center gap-y-4 rounded-xl border-2 border-dashed border-primary bg-[#F6F8FB] py-4"
         >
           <ImageOff :size="48" fill-color="gray" />
           <p class="text-gray-600">No preview available</p>
@@ -105,7 +105,7 @@
           <input
             type="submit"
             value="Create pin"
-            class="cursor-pointer rounded-lg bg-green-600 px-3 py-3 text-white shadow-md hover:bg-green-600/75"
+            class="cursor-pointer rounded-lg bg-primary px-3 py-3 text-white shadow-md hover:bg-primary/75"
           />
         </div>
       </form>
@@ -175,7 +175,7 @@ export default {
       }, 3000)
 
       setTimeout(() => {
-        this.$store.dispatch('uploadImage', {
+        this.$store.dispatch('pins/uploadImage', {
           filename: `${Date.now()}-${file.name}`,
           file,
         })
@@ -198,7 +198,7 @@ export default {
       }, 3000)
 
       setTimeout(() => {
-        this.$store.dispatch('deleteUpload', {
+        this.$store.dispatch('pins/deleteUpload', {
           filename: url,
         })
       }, 2500)

@@ -8,9 +8,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: '#5481bb',
+      },
       boxShadow: {
         pinterest: 'rgb(0 0 0 / 10%) 0px 1px 20px 0px',
         nav: 'rgb(0 0 0 / 10%) 0px 8px 8px -8px',
+      },
+      borderRadius: {
+        pinterest: '32px',
       },
       container: {
         center: true,

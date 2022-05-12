@@ -10,7 +10,6 @@
         <nuxt-link
           :to="{ path: '/' }"
           class="relative flex flex-col justify-center"
-          :class="{ 'text-[#5481bb]': $route.path === '/' }"
         >
           <HomeIcon
             :size="36"
@@ -46,7 +45,7 @@
         <nuxt-link
           v-if="!$auth.user && $route.path !== '/login'"
           :to="{ path: '/login' }"
-          class="rounded-lg bg-green-600 px-3 py-3 text-center text-white shadow-md"
+          class="rounded-lg bg-primary px-3 py-2 text-center text-white shadow-md"
         >
           Login
         </nuxt-link>
@@ -56,7 +55,7 @@
         >
           <img
             class="h-full w-full rounded-full object-cover p-1"
-            :class="$route.path === '/profile' ? 'bg-[#5481bb]' : 'bg-gray-200'"
+            :class="$route.path === '/profile' ? 'bg-primary' : 'bg-gray-200'"
             :src="
               $auth.user.avatar
                 ? $auth.user.avatar
@@ -71,13 +70,13 @@
               <li>
                 <nuxt-link
                   :to="{ path: '/profile' }"
-                  class="text-gray-500 hover:text-blue-500"
+                  class="text-gray-500 hover:text-primary"
                   >Profile</nuxt-link
                 >
               </li>
               <button
                 v-if="$auth.loggedIn"
-                class="text-gray-500 hover:text-blue-500"
+                class="text-gray-500 hover:text-primary"
                 @click="logoutModal"
               >
                 Logout
