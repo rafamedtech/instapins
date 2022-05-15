@@ -66,7 +66,7 @@ export default {
   middleware: 'auth',
   data: () => ({
     newMessage: false,
-    threads: [1],
+    threads: [],
   }),
 }
 </script>
