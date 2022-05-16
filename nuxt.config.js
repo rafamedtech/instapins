@@ -89,7 +89,7 @@ export default {
       },
     },
   },
-  server: {
-    host: '0',
-  },
+  // server: {
+  //   host: '0',
+  // },
 }

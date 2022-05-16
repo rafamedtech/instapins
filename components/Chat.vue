@@ -2,7 +2,7 @@
   <div>
     <div class="chats-container">
       <h2 class="mb-5 ml-2 text-center text-2xl text-primary md:ml-4">
-        Conversation with {{ $route.params.slug }}
+        Conversation with {{ thread.username }}
       </h2>
       <div
         v-for="(message, index) in messages"
@@ -56,7 +56,7 @@
 <script>
 export default {
   props: {
-    user: {
+    thread: {
       type: Object,
       // required: true,
       default: () => {},
@@ -81,7 +81,9 @@ export default {
       //   console.log('Starting Connection')
       //   console.log(this.$route.path)
 
-      this.connection = new WebSocket(`ws://localhost:8000/ws/${this.user.id}/`)
+      this.connection = new WebSocket(
+        `ws://localhost:8000/ws/${this.thread.id}/`
+      )
       //   this.connection = new WebSocket(`ws://localhost:8000${this.$route.path}`)
 
       this.connection.onopen = (event) => {

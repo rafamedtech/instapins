@@ -12,7 +12,7 @@
       v-if="threads.length > 0"
       class="relative mb-8 flex items-center gap-4 rounded-[32px] p-4 shadow-pinterest"
     >
-      <MessageList />
+      <MessageList @user-selected="openChat" />
       <div
         v-if="!currentThread"
         class="mx-auto hidden w-1/2 items-center justify-center text-gray-500 md:flex md:flex-col md:gap-4"
@@ -28,7 +28,7 @@
         </nuxt-link>
       </div>
       <div v-else>
-        <Chat :user="currentThread && currentThread" />
+        <Chat :thread="currentThread && currentThread" />
       </div>
     </section>
 
@@ -74,8 +74,14 @@ export default {
     threads: [{}],
   }),
   methods: {
-    setThread(id) {
-      this.currentThread = this.threads.find((thread) => thread.id === id)
+    openChat(thread) {
+      console.log(`thread selected: ${thread.id}`)
+      this.currentThread = thread
+      this.newMessage = false
+    },
+    async fetchThreads() {
+      const { data } = await this.$axios.get('/api/messages/threads')
+      this.threads = data
     },
   },
 }

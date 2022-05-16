@@ -57,8 +57,9 @@ export default {
     ],
   }),
   methods: {
-    onClick(user) {
-      console.log(user)
+    onClick(thread) {
+      // emit the user to the parent component
+      this.$emit('user-selected', thread)
     },
   },
 }
