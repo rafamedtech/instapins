@@ -14,6 +14,7 @@
     >
       <MessageList />
       <div
+        v-if="!currentThread"
         class="mx-auto hidden w-1/2 items-center justify-center text-gray-500 md:flex md:flex-col md:gap-4"
       >
         <NoMessages :size="36" fill-color="#5481bb" />
@@ -25,6 +26,9 @@
             class="absolute right-4 bottom-4 mx-auto hidden h-16 w-16 rounded-full bg-primary p-2 md:grid md:place-items-center"
           />
         </nuxt-link>
+      </div>
+      <div v-else>
+        <Chat :user="currentThread && currentThread" />
       </div>
     </section>
 
@@ -66,7 +70,13 @@ export default {
   middleware: 'auth',
   data: () => ({
     newMessage: false,
-    threads: [],
+    currentThread: null,
+    threads: [{}],
   }),
+  methods: {
+    setThread(id) {
+      this.currentThread = this.threads.find((thread) => thread.id === id)
+    },
+  },
 }
 </script>

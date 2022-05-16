@@ -55,6 +55,13 @@
 
 <script>
 export default {
+  props: {
+    user: {
+      type: Object,
+      // required: true,
+      default: () => {},
+    },
+  },
   data: () => ({
     connection: null,
     myMessage: '',
@@ -74,7 +81,7 @@ export default {
       //   console.log('Starting Connection')
       //   console.log(this.$route.path)
 
-      this.connection = new WebSocket(`ws://localhost:8000/ws/socket-server/`)
+      this.connection = new WebSocket(`ws://localhost:8000/ws/${this.user.id}/`)
       //   this.connection = new WebSocket(`ws://localhost:8000${this.$route.path}`)
 
       this.connection.onopen = (event) => {

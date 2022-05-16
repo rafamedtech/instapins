@@ -14,7 +14,10 @@
       >
         <img class="w-full" :src="pin.url" alt="" />
       </figure>
-      <div class="relative z-50 mb-4 md:absolute md:right-4 md:top-4">
+      <div
+        v-if="$auth.loggedIn"
+        class="relative z-50 mb-4 md:absolute md:right-4 md:top-4"
+      >
         <div
           v-if="$auth.user.username !== pin.owner"
           class="flex flex-col items-center"
@@ -76,13 +79,15 @@
                     ? comment.username.avatar
                     : require('@/assets/user-default.png')
                 "
-                :alt="comment.username.username"
               />
               <article
                 class="group relative w-[80%] rounded-[16px] border border-gray-400 p-4 text-gray-500"
               >
                 <Close
-                  v-if="$auth.user.username === comment.username.username"
+                  v-if="
+                    $auth.loggedIn &&
+                    $auth.user.username === comment.username.username
+                  "
                   class="absolute right-2 top-2 hidden cursor-pointer group-hover:block"
                   @click="deleteComment(comment.id)"
                 />
@@ -139,7 +144,7 @@
             </p>
             <nuxt-link
               :to="{ path: '/login' }"
-              class="ml-4 mb-2 rounded-lg bg-green-600 px-3 py-3 text-center text-white shadow-md hover:bg-green-600/75"
+              class="ml-4 mb-2 rounded-lg bg-primary px-3 py-3 text-center text-white shadow-md hover:bg-primary/75"
             >
               Login
             </nuxt-link>
