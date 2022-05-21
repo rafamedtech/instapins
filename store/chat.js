@@ -1,5 +1,6 @@
 export const state = () => ({
   image: null,
+  users: [],
   threads: [],
   thread: null,
 })
@@ -30,6 +31,18 @@ export const actions = {
       }
     }
   },
+
+  async fetchUsers({ commit }) {
+    try {
+      const { data, error } = await this.$axios.get('/users/')
+
+      commit('setUsers', data)
+      if (error) throw error
+    } catch (error) {
+      console.error(error)
+    }
+  },
+
   // Fetch Threads
   async fetchThreads({ commit }) {
     try {
@@ -52,6 +65,7 @@ export const actions = {
 }
 
 export const getters = {
+  getUsers: (state) => state.users,
   // Get all threads
   allThreads: (state) => state.threads,
   getThread: (state) => state.thread,
@@ -61,4 +75,5 @@ export const mutations = {
   // Set all threads
   setThreads: (state, payload) => (state.threads = payload),
   setThread: (state, payload) => state.threads.unshift(payload),
+  setUsers: (state, payload) => (state.users = payload),
 }

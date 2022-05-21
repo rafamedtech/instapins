@@ -91,9 +91,9 @@
                   v-for="(user, index) in filteredUsers"
                   :key="index"
                   class="cursor-pointer border-b py-2"
-                  @click="setUser(user)"
+                  @click="setUser(user.username)"
                 >
-                  {{ user }}
+                  {{ user.username }}
                 </li>
               </ul>
             </div>
@@ -140,17 +140,24 @@ export default {
     BackIcon: ArrowLeft,
   },
   middleware: 'auth',
+
   data: () => ({
     chatActive: false,
     currentThread: null,
     receiver: '',
-    users: ['johndoe', 'janedoe'],
+    // users: [],
     filteredUsers: [],
     message: '',
     newMessage: false,
     modal: false,
   }),
+  // async fetch() {
+  //   this.users = await this.$axios.$get('/users/')
+  // },
   computed: {
+    users() {
+      return this.$store.getters['chat/getUsers']
+    },
     threads() {
       return this.$store.getters['chat/allThreads']
     },
@@ -165,14 +172,6 @@ export default {
   },
   mounted() {
     this.searchUsers()
-    if (this.getCurrentThread) {
-      this.currentThread = this.getCurrentThread
-      console.log(this.currentThread)
-    }
-
-    if (this.threads.length > 0) {
-      this.currentThread = this.threads[0]
-    }
   },
   methods: {
     newMessageModal() {
@@ -184,15 +183,16 @@ export default {
     },
 
     newThread() {
-      this.$store.dispatch('chat/newThread', {
-        id: 1,
-        username: this.receiver,
-        message: this.message,
-      })
+      // this.$store.dispatch('chat/newThread', {
+      //   id: 1,
+      //   username: this.receiver,
+      //   message: this.message,
+      // })
+      this.$store.dispatch('chat/fetchUsers')
     },
     searchUsers() {
-      this.filteredUsers = this.users.filter((user) => {
-        return user.toLowerCase().startsWith(this.receiver.toLowerCase())
+      this.filteredUsers = this.users.filter(({ username }) => {
+        return username.toLowerCase().startsWith(this.receiver.toLowerCase())
         // return user.includes(this.receiver)
       })
     },

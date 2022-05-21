@@ -39,7 +39,6 @@ export default {
 
   async mounted() {
     await this.$store.dispatch('pins/fetchPins')
-    console.log(this.$auth.user)
     this.pins = this.getPins
   },
 
