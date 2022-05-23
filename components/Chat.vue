@@ -61,33 +61,54 @@ export default {
   },
   data: () => ({
     connection: null,
+
     myMessage: '',
-    messages: [
-      {
-        username: 'johndoe',
-        message: 'Hello, how are you?',
-      },
-      {
-        username: 'rafamed',
-        message: 'I am fine, thank you',
-      },
-    ],
+    messages: [],
   }),
   created() {
-    return this.$store.dispatch('chat/websocketConnection', {
-      id: 1,
-      thread: this.thread,
-    })
+    // this.connection()
+    if (process.client) {
+      //   console.log('Starting Connection')
+
+      this.connection = new WebSocket(
+        `ws://localhost:8000/ws/${
+          this.thread.id
+        }/?token=${this.$auth.strategy.token.get()}`
+      )
+
+      this.connection.onopen = (event) => {
+        console.log(event)
+        console.log('Connection Opened')
+      }
+
+      this.connection.onmessage = (event) => {
+        // const data = JSON.parse(event)
+        // console.log(`Data: ${data}`)
+        console.log('Message Received')
+        this.messages.push(JSON.parse(event.data))
+        console.log(event.data)
+      }
+    }
   },
+
   methods: {
+    // connection() {
+    //   return this.$store.dispatch('chat/websocketConnection', {
+    //     id: this.thread.id,
+    //     thread: this.thread,
+    //   })
+    // },
     sendMessage() {
       this.connection.send(
         JSON.stringify({
-          message: this.myMessage,
           username: this.$auth.user.username,
-          receiver: this.thread.username,
+          message: this.myMessage,
         })
       )
+      // this.messages.push({
+      //   username: this.$auth.user.username,
+      //   message: this.myMessage,
+      // })
       this.myMessage = ''
     },
   },

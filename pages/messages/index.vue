@@ -142,6 +142,7 @@ export default {
   middleware: 'auth',
 
   data: () => ({
+    threads: [],
     chatActive: false,
     currentThread: null,
     receiver: '',
@@ -151,14 +152,12 @@ export default {
     newMessage: false,
     modal: false,
   }),
-  // async fetch() {
-  //   this.users = await this.$axios.$get('/users/')
-  // },
+
   computed: {
     users() {
       return this.$store.getters['chat/getUsers']
     },
-    threads() {
+    getThreads() {
       return this.$store.getters['chat/allThreads']
     },
     getCurrentThread() {
@@ -171,6 +170,8 @@ export default {
     },
   },
   mounted() {
+    this.$store.dispatch('chat/fetchThreads')
+    this.threads = this.getThreads
     this.searchUsers()
   },
   methods: {
@@ -188,7 +189,15 @@ export default {
       //   username: this.receiver,
       //   message: this.message,
       // })
-      this.$store.dispatch('chat/fetchUsers')
+      const thread = {
+        id: 1,
+        username: this.receiver,
+        message: this.message,
+      }
+
+      this.threads.push(thread)
+      this.openChat(thread)
+      this.newMessage = false
     },
     searchUsers() {
       this.filteredUsers = this.users.filter(({ username }) => {

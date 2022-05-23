@@ -10,7 +10,6 @@ export const actions = {
   websocketConnection({ commit }, thread) {
     if (process.client) {
       //   console.log('Starting Connection')
-      console.log(thread.id)
 
       const connection = new WebSocket(
         `ws://localhost:8000/ws/${
