@@ -45,7 +45,7 @@ export const actions = {
       setTimeout(() => {
         commit('resetRequest', null)
       }, 5000)
-      this.$router.go(-1)
+      this.$router.push('/')
 
       if (error) throw error
     } catch ({ response }) {

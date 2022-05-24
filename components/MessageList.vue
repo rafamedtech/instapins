@@ -13,7 +13,7 @@
         :class="activechat && 'bg-primary/50'"
       >
         <img
-          src="https://kkacmmdynlmnvnvjismq.supabase.co/storage/v1/object/public/test-bucket/avatars/1649777840117-rafamed-gh.png"
+          :src="thread.avatar || require('@/assets/user-default.png')"
           alt=""
           class="mr-2 h-12 w-12 rounded-full object-cover"
         />
@@ -41,7 +41,7 @@ export default {
     threads: {
       type: Array,
       // required: true,
-      default: () => {},
+      default: () => [],
     },
     activechat: {
       type: Boolean,

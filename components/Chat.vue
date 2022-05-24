@@ -7,20 +7,23 @@
       <div
         v-for="(message, index) in messages"
         :key="index"
-        class="ml-2 md:ml-4"
+        class="mb-4"
+        :class="
+          message.username === $auth.user.username
+            ? 'chat-btn'
+            : 'chat-btn-other'
+        "
       >
-        <span
-          class="username"
-          :class="
-            message.username !== $auth.user.username
-              ? 'text-primary'
-              : 'text-gray-500'
+        <img
+          :src="
+            message.username === $auth.user.username
+              ? $auth.user.avatar
+              : require('@/assets/user-default.png')
           "
-          >{{
-            message.username === $auth.user.username ? 'You' : message.username
-          }}:
-        </span>
-        <span class="message">{{ message.message }}</span>
+          class="mr-2 inline h-12 w-12 rounded-full object-cover"
+        />
+
+        <span class="text-white">{{ message.message }}</span>
       </div>
     </div>
     <form

@@ -47,6 +47,8 @@ export const actions = {
     try {
       const { error, data } = await this.$axios.get('/messages/')
 
+      // console.log(`Data: ${data}`)
+
       commit('setThreads', data)
 
       if (error) throw error

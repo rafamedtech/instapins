@@ -73,7 +73,7 @@
               <label for="message-to" class="text-primary">To:</label>
               <input
                 id="message-to"
-                v-model="receiver"
+                v-model="receiver.username"
                 type="text"
                 class="z-10 w-full rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
                 autocomplete="off"
@@ -91,7 +91,7 @@
                   v-for="(user, index) in filteredUsers"
                   :key="index"
                   class="cursor-pointer border-b py-2"
-                  @click="setUser(user.username)"
+                  @click="setUser(user)"
                 >
                   {{ user.username }}
                 </li>
@@ -145,7 +145,12 @@ export default {
     threads: [],
     chatActive: false,
     currentThread: null,
-    receiver: '',
+    receiver: {
+      id: null,
+      username: '',
+      avatar: null,
+    },
+
     // users: [],
     filteredUsers: [],
     message: '',
@@ -190,9 +195,10 @@ export default {
       //   message: this.message,
       // })
       const thread = {
-        id: 1,
-        username: this.receiver,
+        id: this.receiver.id,
+        username: this.receiver.username,
         message: this.message,
+        avatar: this.receiver.avatar,
       }
 
       this.threads.push(thread)
@@ -200,8 +206,10 @@ export default {
       this.newMessage = false
     },
     searchUsers() {
-      this.filteredUsers = this.users.filter(({ username }) => {
-        return username.toLowerCase().startsWith(this.receiver.toLowerCase())
+      this.filteredUsers = this.users.filter((user) => {
+        return user.username
+          .toLowerCase()
+          .startsWith(this.receiver.username.toLowerCase())
         // return user.includes(this.receiver)
       })
     },
