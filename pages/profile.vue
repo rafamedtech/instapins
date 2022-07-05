@@ -6,9 +6,9 @@
     >
       <BackIcon fill-color="#5481bb" /> Back
     </button>
-    <h1 class="mb-5 ml-2 text-4xl text-primary md:ml-4">My Profile</h1>
+    <h1 class="mb-5 ml-4 text-4xl text-primary md:ml-4">My Profile</h1>
     <section
-      class="mb-8 flex max-w-xl flex-col items-center rounded-[32px] p-4 shadow-pinterest md:mx-auto md:flex-row md:justify-evenly"
+      class="m-4 mb-8 flex max-w-xl flex-col items-center rounded-[32px] p-4 shadow-pinterest md:mx-auto md:flex-row md:justify-evenly"
     >
       <figure
         class="group relative mt-8 h-52 w-52 rounded-full bg-gray-200 md:my-8 md:h-auto"

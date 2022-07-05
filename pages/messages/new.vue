@@ -11,11 +11,12 @@
     <section
       class="mx-auto mb-8 flex max-w-[768px] items-center gap-4 rounded-[32px] p-4 shadow-pinterest"
     >
-      <form class="flex w-full flex-col gap-4 p-4">
+      <form class="flex w-full flex-col gap-4 p-4" @submit.prevent="newThread">
         <div class="flex flex-col gap-2 md:w-1/2">
           <label for="message-to" class="text-primary">To:</label>
           <input
             id="message-to"
+            v-model="receiver"
             type="text"
             class="w-full rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
           />
@@ -26,6 +27,7 @@
           >
           <textarea
             id="message-content"
+            v-model="message"
             type="text"
             class="min-h-[300px] w-full rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 md:h-80"
           />
@@ -45,6 +47,22 @@ import ArrowLeft from 'icons/ArrowLeft.vue'
 export default {
   components: {
     BackIcon: ArrowLeft,
+  },
+
+  data: () => ({
+    receiver: '',
+    message: '',
+  }),
+
+  methods: {
+    newThread() {
+      this.$store.dispatch('chat/newThread', {
+        id: 1,
+        username: this.receiver,
+        message: this.message,
+      })
+      this.$router.push('/messages')
+    },
   },
 }
 </script>
