@@ -26,22 +26,18 @@
             :fill-color="$route.path === '/new' ? '#5481bb' : 'gray'"
           />
         </nuxt-link>
-        <nuxt-link
+        <!-- <nuxt-link
           v-if="$auth.loggedIn"
           :to="{ path: '/messages' }"
           class="relative flex flex-col justify-center"
         >
-          <!-- <span
-            v-if="messages.length > 0"
-            class="absolute -top-1 -right-2 h-6 w-6 rounded-full bg-red-500 text-center text-white"
-            >{{ messages.length }}</span
-          > -->
+
 
           <Messages
             :size="36"
             :fill-color="$route.path === '/messages' ? '#5481bb' : 'gray'"
           />
-        </nuxt-link>
+        </nuxt-link> -->
         <nuxt-link
           v-if="!$auth.user && $route.path !== '/login'"
           :to="{ path: '/login' }"
@@ -104,23 +100,18 @@
 </template>
 
 <script>
-import MessageProcessingOutline from 'icons/MessageProcessingOutline.vue'
 import ImagePlus from 'icons/ImagePlus.vue'
 import Home from 'icons/Home.vue'
 export default {
   components: {
-    Messages: MessageProcessingOutline,
     NewPin: ImagePlus,
     HomeIcon: Home,
   },
+
   data: () => ({
     openModal: false,
-    messages: [
-      {
-        name: 'paty',
-      },
-    ],
   }),
+
   methods: {
     logoutModal() {
       this.openModal = !this.openModal
