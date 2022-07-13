@@ -165,7 +165,7 @@ export const actions = {
   async uploadImage({ commit }, payload) {
     try {
       const { error } = await this.$supabase.storage
-        .from('test-bucket')
+        .from('instapins')
         .upload(payload.filename, payload.file)
 
       commit('setStatusMsg', 'Image uploaded successfully', { root: true })
@@ -184,7 +184,7 @@ export const actions = {
     // Get the Public URL for the uploaded file
     try {
       const { publicURL, error } = await this.$supabase.storage
-        .from('test-bucket')
+        .from('instapins')
         .getPublicUrl(payload.filename)
 
       commit('setImageInfo', publicURL)
@@ -202,7 +202,7 @@ export const actions = {
   async deleteUpload({ commit }, payload) {
     try {
       const { error } = await this.$supabase.storage
-        .from('test-bucket')
+        .from('myunsplash')
         .remove([payload.filename])
 
       commit('setRemoveImageInfo')

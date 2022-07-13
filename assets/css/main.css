@@ -13,6 +13,7 @@
     overflow-x: hidden;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+    @apply bg-gray-50;
   }
 
   body::-webkit-scrollbar {
@@ -59,23 +60,23 @@
 
 /* Transitions */
 .slide-fade-enter {
-  transform: translateY(30px);
-  /* opacity: 0; */
+  opacity: 0;
+  transform: translateX(15px);
 }
 
 .slide-fade-enter-active,
 .slide-fade-leave-active {
-  transition: all 0.25s ease-out;
+  transition: all 0.5s ease-out;
 }
 
 .slide-fade-leave-to {
-  transform: translateY(-30px);
-  /* opacity: 0; */
+  transform: translateX(-30px);
+  opacity: 0;
 }
 
 .fade-enter {
   transform: scale(0.9);
-  /* opacity: 0; */
+  opacity: 0;
 }
 
 .fade-enter-active,
@@ -84,6 +85,6 @@
 }
 
 .fade-leave-to {
-  transform: scale(0.9);
-  /* opacity: 0; */
+  opacity: 0;
+  transform: translateX(-15px);
 }

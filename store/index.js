@@ -73,7 +73,7 @@ export const actions = {
   async uploadAvatar({ commit }, payload) {
     try {
       const { error } = await this.$supabase.storage
-        .from('test-bucket')
+        .from('instapins')
         .upload(payload.filename, payload.file)
 
       setTimeout(() => {
@@ -89,8 +89,8 @@ export const actions = {
     }
 
     try {
-      const { data, error } = await this.$axios.put('/users/', {
-        avatar: `https://kkacmmdynlmnvnvjismq.supabase.co/storage/v1/object/public/test-bucket/${payload.filename}`,
+      const { data, error } = await this.$axios.put('/users/user/', {
+        avatar: `https://geqogioegammsiznrksj.supabase.co/storage/v1/object/public/instapins/${payload.filename}`,
       })
 
       commit('setStatusMsg', data.message)

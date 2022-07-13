@@ -6,6 +6,7 @@
     >
       <BackIcon fill-color="#5481bb" /> Back
     </button>
+    <h1 class="px-4 pb-4 text-4xl text-primary">Create a new pin</h1>
     <section
       class="mx-2 flex h-auto min-h-[500px] flex-col rounded-[32px] p-4 shadow-pinterest md:mx-4 md:flex-row md:gap-x-8"
     >
@@ -17,6 +18,8 @@
           <Modal v-if="isLoading" :message="modalMsg" />
         </transition>
       </article>
+
+      <!-- Show the preview of the image or default -->
       <article
         class="mx-auto w-full items-center justify-center rounded-xl md:my-10 md:w-[400px] md:py-0"
       >
@@ -25,14 +28,7 @@
           class="h-full w-full overflow-hidden rounded-xl py-4"
         >
           <img
-            v-if="uploadedImage"
-            :src="uploadedImage"
-            alt=""
-            class="h-auto w-full rounded-xl"
-          />
-          <img
-            v-else
-            :src="pin.image"
+            :src="uploadedImage ? uploadedImage : pin.image"
             alt=""
             class="h-auto w-full rounded-xl"
           />
@@ -55,7 +51,7 @@
           v-model="pin.title"
           type="text"
           placeholder="Add a title"
-          class="border-b-2 text-4xl text-gray-500 focus:outline-none"
+          class="border-b-2 bg-transparent text-4xl text-gray-500 focus:outline-none"
           required
         />
         <textarea
@@ -83,7 +79,7 @@
             v-else
             v-model="pin.image"
             type="text"
-            placeholder="Add your image url or upload a new one"
+            placeholder="Add your image url or upload a new file"
             class="w-full rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
             required
           />

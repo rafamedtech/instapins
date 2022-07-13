@@ -3,7 +3,7 @@
     <!-- Login Form -->
     <h1 class="mb-4 text-3xl text-primary">Login</h1>
     <form
-      class="flex flex-col gap-6 rounded-2xl bg-white p-12 shadow-pinterest md:flex-row"
+      class="flex flex-col gap-6 rounded-2xl p-12 shadow-pinterest md:flex-row"
       @submit.prevent="userLogin"
     >
       <figure class="w-full">

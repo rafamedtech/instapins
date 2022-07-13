@@ -2,8 +2,8 @@
   <header
     class="container mb-6 flex flex-col items-center justify-between gap-y-4 p-4 shadow-nav md:flex-row"
   >
-    <nuxt-link :to="{ path: '/' }" class="logo text-5xl text-gray-500"
-      >My unsplash</nuxt-link
+    <nuxt-link :to="{ path: '/' }" class="logo text-6xl text-gray-500"
+      >Instapins</nuxt-link
     >
     <div class="flex flex-col-reverse gap-x-4 gap-y-2 md:flex-row">
       <div class="flex w-[250px] justify-around gap-x-4 md:w-auto">
@@ -60,7 +60,7 @@
             :alt="$auth.user.username"
           />
           <div
-            class="invisible absolute -bottom-24 -left-28 z-50 m-4 rounded-lg bg-white py-4 px-8 shadow-pinterest transition-all group-hover:visible"
+            class="invisible absolute -bottom-24 -left-28 z-[100] m-4 rounded-lg bg-gray-100 py-4 px-8 shadow-pinterest transition-all group-hover:visible"
           >
             <ul class="flex flex-col gap-y-4">
               <li>

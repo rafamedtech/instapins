@@ -6,7 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'image_uploader_frontend',
+    title: 'Instapins',
     htmlAttrs: {
       lang: 'en',
     },
@@ -89,7 +89,4 @@ export default {
       },
     },
   },
-  // server: {
-  //   host: '0',
-  // },
 }

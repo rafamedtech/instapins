@@ -69,22 +69,28 @@
       </article>
     </section>
     <h2 class="mb-5 ml-2 text-3xl text-primary md:ml-4">My pins</h2>
-    <section
+    <transition-group
       v-if="myPins.length"
+      name="fade"
+      tag="section"
+      appear
       class="container columns-2 gap-2 space-y-2 px-2 pb-28 md:columns-3 md:gap-4 md:space-y-4 md:px-4 lg:columns-4 lg:gap-6 lg:space-y-6 lg:px-4"
     >
-      <PinCard v-for="(pin, index) in myPins" :key="index" :pin="pin" />
-    </section>
+      <PinCard v-for="pin in myPins" :key="pin.id" :pin="pin" />
+    </transition-group>
     <h2 class="mb-5 ml-2 text-3xl text-primary md:ml-4">
       My liked pins (<span class="text-gray-500">{{ myLikedPins.length }}</span
       >)
     </h2>
-    <section
+    <transition-group
       v-if="myLikedPins.length"
+      name="fade"
+      tag="section"
+      appear
       class="container columns-2 gap-2 space-y-2 px-2 pb-28 md:columns-3 md:gap-4 md:space-y-4 md:px-4 lg:columns-4 lg:gap-6 lg:space-y-6 lg:px-4"
     >
-      <PinCard v-for="(pin, index) in myLikedPins" :key="index" :pin="pin" />
-    </section>
+      <PinCard v-for="pin in myLikedPins" :key="pin.id" :pin="pin" />
+    </transition-group>
   </main>
 </template>
 
