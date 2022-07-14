@@ -68,6 +68,8 @@
         </div>
       </article>
     </section>
+
+    <!-- My uploaded pins -->
     <h2 class="mb-5 ml-2 text-3xl text-primary md:ml-4">My pins</h2>
     <transition-group
       v-if="myPins.length"
@@ -78,6 +80,8 @@
     >
       <PinCard v-for="pin in myPins" :key="pin.id" :pin="pin" />
     </transition-group>
+
+    <!-- My liked pins -->
     <h2 class="mb-5 ml-2 text-3xl text-primary md:ml-4">
       My liked pins (<span class="text-gray-500">{{ myLikedPins.length }}</span
       >)

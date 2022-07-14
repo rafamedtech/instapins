@@ -21,11 +21,15 @@
         class="mx-auto w-full items-center justify-center rounded-xl md:my-10 md:w-[400px] md:py-0"
       >
         <figure class="h-full w-full overflow-hidden rounded-xl py-4">
-          <img :src="pin.url" alt="" class="h-auto w-full rounded-xl" />
+          <img
+            :src="pin.url"
+            :alt="pin.title"
+            class="h-auto w-full rounded-xl"
+          />
         </figure>
       </article>
 
-      <!-- New entry form -->
+      <!-- Edit entry form -->
       <form
         class="mx-auto flex w-full flex-col gap-y-8 py-4 md:w-1/2"
         @submit.prevent="updatePin"
@@ -34,7 +38,7 @@
           v-model="pin.title"
           type="text"
           placeholder="Add a title"
-          class="border-b-2 text-4xl text-gray-500 focus:outline-none"
+          class="border-b-2 bg-transparent text-4xl text-gray-500 focus:outline-none"
           required
         />
         <textarea

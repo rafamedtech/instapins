@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header />
+    <AppHeader />
     <Notification v-if="request.status" :request="request" />
     <transition name="slide-fade">
       <Nuxt />

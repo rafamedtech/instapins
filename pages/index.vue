@@ -11,7 +11,7 @@
     <transition-group
       v-if="pins.length"
       name="fade"
-      tag="div"
+      tag="section"
       appear
       class="container columns-2 gap-2 space-y-2 px-2 pb-28 md:columns-3 md:gap-4 md:space-y-4 md:px-4 lg:columns-4 lg:gap-6 lg:space-y-6 lg:px-0"
     >

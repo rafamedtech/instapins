@@ -105,7 +105,7 @@ export default {
   }),
 
   head: {
-    title: 'Register | My Unsplash',
+    title: 'Register | Instapins',
     meta: [
       {
         hid: 'description',
