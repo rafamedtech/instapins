@@ -58,7 +58,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:8000/',
+    baseURL: 'https://instapins.herokuapp.com/' || 'http://localhost:8000/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -89,4 +89,6 @@ export default {
       },
     },
   },
+
+  transpile: ['vee-validate/dist/rules'],
 }

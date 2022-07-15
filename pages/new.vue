@@ -24,7 +24,10 @@
         class="mx-auto w-full items-center justify-center rounded-xl md:my-10 md:w-[400px] md:py-0"
       >
         <figure
-          v-if="uploadedImage || pin.image"
+          v-if="
+            (uploadedImage || pin.image) &&
+            validation === 'Valid file extension'
+          "
           class="h-full w-full overflow-hidden rounded-xl py-4"
         >
           <img
@@ -60,7 +63,7 @@
           class="h-40 w-full rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
           required
         ></textarea>
-        <div class="flex items-center gap-4">
+        <div class="relative flex items-center gap-4">
           <div v-if="uploadedImage" class="relative w-full">
             <Close
               class="absolute -right-2 -top-2 cursor-pointer"
@@ -73,6 +76,7 @@
               class="w-full rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
               :value="uploadedImage"
               readonly
+              @change="imageValidation"
             />
           </div>
           <input
@@ -80,8 +84,15 @@
             v-model="pin.image"
             type="text"
             placeholder="Add your image url or upload a new file"
-            class="w-full rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
+            class="focus:ring-gray-500' w-full rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1"
+            :class="{
+              'focus:ring-red-500':
+                validation === 'Invalid file extension' && pin.image !== '',
+              'border-green-500':
+                validation === 'Valid file extension' && pin.image !== '',
+            }"
             required
+            @input="imageValidation"
           />
 
           <label
@@ -90,6 +101,15 @@
             ><UploadIcon /> Upload</label
           >
           <input id="upload" type="file" class="hidden" @change="onUpload" />
+          <span
+            v-if="validation && pin.image !== ''"
+            class="absolute -bottom-10 left-4"
+            :class="{
+              'text-red-500': validation === 'Invalid file extension',
+              'text-green-500': validation === 'Valid file extension',
+            }"
+            >{{ validation }}</span
+          >
         </div>
         <div class="flex w-full items-center justify-end gap-x-4">
           <button
@@ -129,8 +149,9 @@ export default {
     pin: {
       title: '',
       description: '',
-      image: '',
+      image: null,
     },
+    validation: null,
     isLoading: false,
     modalMsg: '',
   }),
@@ -176,11 +197,13 @@ export default {
           file,
         })
       }, 2000)
+
+      this.validation = 'Valid file extension'
     },
 
     deleteUploadedImage() {
       const url = this.uploadedImage.replace(
-        'https://kkacmmdynlmnvnvjismq.supabase.co/storage/v1/object/public/test-bucket/',
+        'https://kkacmmdynlmnvnvjismq.supabase.co/storage/v1/object/public/media/',
         ''
       )
 
@@ -198,6 +221,18 @@ export default {
           filename: url,
         })
       }, 2500)
+    },
+
+    imageValidation() {
+      // regex for image extension validation without empty string
+      if (
+        this.pin.image !== '' &&
+        !this.pin.image.match(/\.(jpe?g|png|gif)$/)
+      ) {
+        this.validation = 'Invalid file extension'
+      } else {
+        this.validation = 'Valid file extension'
+      }
     },
   },
 }
