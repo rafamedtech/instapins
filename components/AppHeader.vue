@@ -2,7 +2,10 @@
   <header
     class="container mb-6 flex flex-col items-center justify-between gap-y-4 p-4 shadow-nav md:flex-row"
   >
-    <nuxt-link :to="{ path: '/' }" class="logo text-6xl text-gray-500"
+    <nuxt-link
+      :to="{ path: '/' }"
+      aria-label="Home"
+      class="logo text-6xl text-gray-500"
       >Instapins</nuxt-link
     >
     <div class="flex flex-col-reverse gap-x-4 gap-y-2 md:flex-row">
@@ -10,6 +13,7 @@
         <nuxt-link
           :to="{ path: '/' }"
           class="relative flex flex-col justify-center"
+          aria-label="Home"
         >
           <HomeIcon
             :size="36"
@@ -20,6 +24,7 @@
           v-if="$auth.loggedIn"
           :to="{ path: '/new' }"
           class="relative flex flex-col justify-center"
+          aria-label="New pin"
         >
           <NewPin
             :size="36"
@@ -42,6 +47,7 @@
           v-if="!$auth.user && $route.path !== '/login'"
           :to="{ path: '/login' }"
           class="rounded-lg bg-primary px-3 py-2 text-center text-white shadow-md"
+          aria-label="Login"
         >
           Login
         </nuxt-link>
@@ -67,12 +73,14 @@
                 <nuxt-link
                   :to="{ path: '/profile' }"
                   class="text-gray-500 hover:text-primary"
+                  aria-label="Profile"
                   >Profile</nuxt-link
                 >
               </li>
               <button
                 v-if="$auth.loggedIn"
                 class="text-gray-500 hover:text-primary"
+                type="button"
                 @click="logoutModal"
               >
                 Logout
