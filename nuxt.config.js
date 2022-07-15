@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import axios from 'axios'
 const dynamicRoutes = () => {
-  return axios.get('https://instapins.herokuapp.com/pins').then((res) => {
+  return axios.get('https://instapins.herokuapp.com/pins/').then((res) => {
     return res.data.map((pin) => `/pins/${pin.id}`)
   })
 }
