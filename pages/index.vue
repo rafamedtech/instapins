@@ -9,7 +9,7 @@
 
     <!-- Pin cards container -->
     <transition-group
-      v-if="pins.length"
+      v-show="pins.length"
       name="fade"
       tag="section"
       appear
@@ -20,7 +20,7 @@
 
     <!-- If no pins -->
     <div
-      v-else
+      v-show="!pins.length"
       class="container grid place-items-center px-2 pb-28 md:px-4 lg:px-0"
     >
       <i class="text-2xl text-gray-500">No pins found</i>
