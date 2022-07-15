@@ -7,11 +7,16 @@
       v-if="confirmation"
       class="flex w-full items-center justify-end gap-x-4 pr-4"
     >
-      <button class="text-gray-500 hover:text-red-500" @click="closeModal">
+      <button
+        class="text-gray-500 hover:text-red-500"
+        type="button"
+        @click="closeModal"
+      >
         Cancel
       </button>
       <button
         class="cursor-pointer rounded-lg bg-primary px-3 py-3 text-white shadow-md hover:bg-primary/75"
+        type="button"
         @click="
           () => {
             onAction()
