@@ -1,4 +1,10 @@
 import { resolve } from 'path'
+import axios from 'axios'
+const dynamicRoutes = () => {
+  return axios.get('https://instapins.herokuapp.com/pins').then((res) => {
+    return res.data.map((pin) => `/pins/${pin.id}`)
+  })
+}
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -91,4 +97,8 @@ export default {
   },
 
   transpile: ['vee-validate/dist/rules'],
+
+  generate: {
+    routes: dynamicRoutes,
+  },
 }
