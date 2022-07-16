@@ -13,6 +13,7 @@
           alt="login image"
         />
       </figure>
+
       <div class="w-full">
         <section class="mb-2 flex flex-col">
           <label for="username" class="mb-1 text-sm text-gray-500"
@@ -66,7 +67,7 @@ export default {
   }),
 
   head: {
-    title: 'Login | My Unsplash',
+    title: 'Login | Instapins',
     meta: [
       {
         hid: 'description',

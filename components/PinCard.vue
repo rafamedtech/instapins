@@ -20,15 +20,14 @@
       v-if="$auth.loggedIn"
       class="absolute top-2 right-2 hidden self-start group-hover:block"
     >
-      <button
+      <nuxt-link
         v-if="$auth.user.username === pin.owner && $route.path === '/profile'"
-        class="rounded-lg p-1 text-white transition-all duration-300 hover:bg-primary"
-        type="button"
+        :to="`/${pin.id}/edit`"
+        class="block rounded-lg p-1 text-white transition-all duration-300 hover:bg-primary"
       >
-        <nuxt-link :to="`/${pin.id}/edit`">
-          <Edit :size="32" />
-        </nuxt-link>
-      </button>
+        <Edit :size="32" />
+      </nuxt-link>
+
       <button
         v-if="$auth.user.username === pin.owner && $route.path === '/profile'"
         class="rounded-lg p-1 text-white transition-all duration-300 hover:bg-red-500"

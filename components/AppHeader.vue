@@ -34,7 +34,7 @@
 
         <nuxt-link
           v-if="!$auth.user && $route.path !== '/login'"
-          :to="{ path: '/login' }"
+          :to="{ name: 'login' }"
           class="rounded-lg bg-primary px-3 py-2 text-center text-white shadow-md"
           aria-label="Login"
         >
