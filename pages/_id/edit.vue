@@ -1,6 +1,7 @@
 <template>
   <main class="container">
     <button
+      type="button"
       class="mx-4 mb-6 flex gap-x-2 text-gray-500"
       @click="$router.go(-1)"
     >
@@ -34,14 +35,18 @@
         class="mx-auto flex w-full flex-col gap-y-8 py-4 md:w-1/2"
         @submit.prevent="updatePin"
       >
+        <label class="hidden" for="title"></label>
         <input
+          id="title"
           v-model="pin.title"
           type="text"
           placeholder="Add a title"
           class="border-b-2 bg-transparent text-4xl text-gray-500 focus:outline-none"
           required
         />
+        <label class="hidden" for="description"></label>
         <textarea
+          id="description"
           v-model="pin.description"
           placeholder="Tell us about your pin"
           class="h-40 w-full rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
@@ -50,16 +55,18 @@
 
         <div class="flex w-full items-center justify-end gap-x-4">
           <button
+            type="button"
             class="text-gray-500 hover:text-red-500"
             @click="$router.go(-1)"
           >
             Cancel
           </button>
-          <input
+          <button
             type="submit"
-            value="Update pin"
             class="cursor-pointer rounded-lg bg-primary px-3 py-3 text-white shadow-md hover:bg-primary/75"
-          />
+          >
+            Update pin
+          </button>
         </div>
       </form>
     </section>

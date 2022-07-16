@@ -9,7 +9,7 @@
       <figure class="w-full">
         <img
           class="mx-auto h-full w-full"
-          src="@/assets/register.svg"
+          :src="require('@/assets/register.svg')"
           alt="Register image"
         />
       </figure>

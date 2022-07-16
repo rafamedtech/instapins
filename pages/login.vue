@@ -9,7 +9,7 @@
       <figure class="w-full">
         <img
           class="mx-auto h-full w-full"
-          src="@/assets/login.svg"
+          :src="require('@/assets/login.svg')"
           alt="login image"
         />
       </figure>

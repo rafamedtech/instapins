@@ -36,16 +36,15 @@
 
           <span class="text-sm text-gray-600">{{ pin.likes.length }}</span>
         </div>
-        <button
+
+        <nuxt-link
           v-else
-          type="button"
-          aria-label="You can't like your own pin"
           class="rounded-lg p-1 text-white transition-all duration-300"
+          :to="`/${pin.id}/edit/`"
+          aria-label="Edit pin"
         >
-          <Edit :size="32" fill-color="gray">
-            <nuxt-link :to="`/${pin.id}/edit/`"></nuxt-link>
-          </Edit>
-        </button>
+          <Edit :size="32" fill-color="gray" />
+        </nuxt-link>
       </div>
       <article
         class="flex flex-col items-center justify-between gap-y-8 md:w-1/2 md:px-4"

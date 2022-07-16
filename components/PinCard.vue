@@ -6,7 +6,7 @@
       <img
         class="w-full transition-all duration-300 group-hover:scale-110 group-hover:brightness-50"
         :src="pin.url"
-        alt=""
+        alt="Pin image"
       />
     </nuxt-link>
 
