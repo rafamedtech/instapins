@@ -41,7 +41,7 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxt/postcss8',
-    '@nuxtjs/html-validator',
+    // '@nuxtjs/html-validator',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -97,34 +97,32 @@ export default {
     },
   },
 
-  transpile: ['vee-validate/dist/rules'],
-
   generate: {
     routes: dynamicRoutes,
   },
 
-  htmlValidator: {
-    usePrettier: false,
-    failOnError: false,
-    options: {
-      extends: [
-        'html-validate:document',
-        'html-validate:recommended',
-        'html-validate:standard',
-      ],
-      rules: {
-        'svg-focusable': 'off',
-        'no-unknown-elements': 'error',
-        // Conflicts or not needed as we use prettier formatting
-        'void-style': 'off',
-        'no-trailing-whitespace': 'off',
-        // Conflict with Nuxt defaults
-        'require-sri': 'off',
-        'attribute-boolean-style': 'off',
-        'doctype-style': 'off',
-        // Unreasonable rule
-        'no-inline-style': 'off',
-      },
-    },
-  },
+  // htmlValidator: {
+  //   usePrettier: false,
+  //   failOnError: false,
+  //   options: {
+  //     extends: [
+  //       'html-validate:document',
+  //       'html-validate:recommended',
+  //       'html-validate:standard',
+  //     ],
+  //     rules: {
+  //       'svg-focusable': 'off',
+  //       'no-unknown-elements': 'error',
+  //       // Conflicts or not needed as we use prettier formatting
+  //       'void-style': 'off',
+  //       'no-trailing-whitespace': 'off',
+  //       // Conflict with Nuxt defaults
+  //       'require-sri': 'off',
+  //       'attribute-boolean-style': 'off',
+  //       'doctype-style': 'off',
+  //       // Unreasonable rule
+  //       'no-inline-style': 'off',
+  //     },
+  //   },
+  // },
 }
