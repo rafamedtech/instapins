@@ -2,7 +2,7 @@
   <div
     class="group relative block max-w-sm cursor-zoom-in break-inside-avoid overflow-hidden rounded-2xl shadow-xl"
   >
-    <nuxt-link :to="`/${pin.id}/`" class="cursor-zoom-in">
+    <nuxt-link :to="{ path: `/${pin.id}` }" class="cursor-zoom-in">
       <img
         class="w-full transition-all duration-300 group-hover:scale-110 group-hover:brightness-50"
         :src="pin.url"
@@ -25,7 +25,7 @@
         class="rounded-lg p-1 text-white transition-all duration-300 hover:bg-primary"
         type="button"
       >
-        <nuxt-link :to="`/${pin.id}/edit/`">
+        <nuxt-link :to="`/${pin.id}/edit`">
           <Edit :size="32" />
         </nuxt-link>
       </button>

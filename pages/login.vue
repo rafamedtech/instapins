@@ -49,7 +49,7 @@
 
         <nuxt-link
           class="mx-auto mt-6 block w-full text-center text-sm"
-          to="/register"
+          :to="{ name: 'register' }"
         >
           Don't have an account? <span class="text-green-500">Register</span>
         </nuxt-link>

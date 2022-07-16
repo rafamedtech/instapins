@@ -3,7 +3,7 @@
     class="container mb-6 flex flex-col items-center justify-between gap-y-4 p-4 shadow-nav md:flex-row"
   >
     <nuxt-link
-      :to="{ path: '/' }"
+      :to="{ name: 'index' }"
       aria-label="Home"
       class="logo text-6xl text-gray-500"
       >Instapins</nuxt-link
@@ -11,7 +11,7 @@
     <div class="flex flex-col-reverse gap-x-4 gap-y-2 md:flex-row">
       <div class="flex w-[250px] justify-around gap-x-4 md:w-auto">
         <nuxt-link
-          :to="{ path: '/' }"
+          :to="{ name: 'index' }"
           class="relative flex flex-col justify-center"
           aria-label="Home"
         >
@@ -22,7 +22,7 @@
         </nuxt-link>
         <nuxt-link
           v-if="$auth.loggedIn"
-          :to="{ path: '/new' }"
+          :to="{ name: 'new' }"
           class="relative flex flex-col justify-center"
           aria-label="New pin"
         >
@@ -31,18 +31,7 @@
             :fill-color="$route.path === '/new' ? '#5481bb' : 'gray'"
           />
         </nuxt-link>
-        <!-- <nuxt-link
-          v-if="$auth.loggedIn"
-          :to="{ path: '/messages' }"
-          class="relative flex flex-col justify-center"
-        >
 
-
-          <Messages
-            :size="36"
-            :fill-color="$route.path === '/messages' ? '#5481bb' : 'gray'"
-          />
-        </nuxt-link> -->
         <nuxt-link
           v-if="!$auth.user && $route.path !== '/login'"
           :to="{ path: '/login' }"
@@ -71,7 +60,7 @@
             <ul class="flex flex-col gap-y-4">
               <li>
                 <nuxt-link
-                  :to="{ path: '/profile' }"
+                  :to="{ name: 'profile' }"
                   class="text-gray-500 hover:text-primary"
                   aria-label="Profile"
                   >Profile</nuxt-link
