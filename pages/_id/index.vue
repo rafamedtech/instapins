@@ -39,7 +39,7 @@
 
         <nuxt-link
           v-else
-          class="rounded-lg p-1 text-white transition-all duration-300"
+          class="block rounded-lg p-1 text-white transition-all duration-300"
           :to="`/${pin.id}/edit/`"
           aria-label="Edit pin"
         >
