@@ -7,9 +7,9 @@ export const state = () => ({
 })
 
 export const actions = {
-  // async nuxtServerInit({ dispatch }) {
-  //   await dispatch('pins/fetchPins')
-  // },
+  async nuxtServerInit({ dispatch }) {
+    await dispatch('pins/fetchPins')
+  },
 
   // User Registration
   async userRegister({ commit }, payload) {
