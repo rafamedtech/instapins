@@ -1,6 +1,7 @@
 <template>
   <main class="container">
     <button
+      type="button"
       class="mx-4 mb-6 flex gap-x-2 text-gray-500"
       @click="$router.go(-1)"
     >
@@ -24,7 +25,6 @@
         />
         <div>
           <label
-            for="avatar"
             class="absolute inset-0 -z-10 mx-auto hidden h-52 w-52 cursor-pointer flex-col items-center justify-center rounded-full bg-[#2C394B]/75 text-center text-white group-hover:z-50 group-hover:flex"
           >
             <input id="avatar" type="file" class="hidden" @change="onUpload" />

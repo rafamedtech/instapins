@@ -1,6 +1,7 @@
 <template>
   <main class="container">
     <button
+      type="button"
       class="mx-4 mb-6 flex gap-x-2 text-gray-500"
       @click="$router.go(-1)"
     >
@@ -50,14 +51,18 @@
         class="mx-auto flex w-full flex-col gap-y-8 py-4 md:w-1/2"
         @submit.prevent="createPin"
       >
+        <label class="hidden" for="title"></label>
         <input
+          id="title"
           v-model="pin.title"
           type="text"
           placeholder="Add a title"
           class="border-b-2 bg-transparent text-4xl text-gray-500 focus:outline-none"
           required
         />
+        <label class="hidden" for="description"></label>
         <textarea
+          id="description"
           v-model="pin.description"
           placeholder="Tell us about your pin"
           class="h-40 w-full rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
@@ -71,7 +76,9 @@
               title="Delete image"
               @click="deleteUploadedImage"
             />
+            <label class="hidden" for="uploaded"></label>
             <input
+              id="uploaded"
               type="text"
               class="w-full rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
               :value="uploadedImage"
@@ -79,8 +86,10 @@
               @change="imageValidation"
             />
           </div>
+
           <input
             v-else
+            id="pin-image"
             v-model="pin.image"
             type="text"
             placeholder="Add your image url or upload a new file"
@@ -94,6 +103,7 @@
             required
             @input="imageValidation"
           />
+          <label class="hidden" for="pin-image"></label>
 
           <label
             for="upload"
@@ -118,11 +128,12 @@
           >
             Cancel
           </button>
-          <input
+          <button
             type="submit"
-            value="Create pin"
             class="cursor-pointer rounded-lg bg-primary px-3 py-3 text-white shadow-md hover:bg-primary/75"
-          />
+          >
+            Create pin
+          </button>
         </div>
       </form>
     </section>

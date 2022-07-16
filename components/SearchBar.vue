@@ -1,7 +1,9 @@
 <template>
   <div class="relative flex h-12 items-center">
     <SearchIcon class="absolute mx-2" fill-color="gray" />
+    <label for="search"></label>
     <input
+      id="search"
       class="h-10 rounded-lg border border-gray-400 bg-transparent py-6 pl-8 pr-4 placeholder:pl-2 focus:outline-none focus:ring-1 focus:ring-gray-500"
       :class="searchValue ? 'focus:ring-1 focus:ring-primary' : ''"
       type="text"

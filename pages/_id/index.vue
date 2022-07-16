@@ -1,6 +1,7 @@
 <template>
   <main class="container">
     <button
+      type="button"
       class="mx-4 mb-6 flex gap-x-2 text-gray-500"
       @click="$router.go(-1)"
     >
@@ -12,7 +13,7 @@
       <figure
         class="mb-4 h-full overflow-hidden rounded-[16px] shadow-pinterest md:mb-0 md:w-1/2"
       >
-        <img class="w-full" :src="pin.url" alt="" />
+        <img class="w-full" :src="pin.url" alt="pin image" />
       </figure>
       <div
         v-if="$auth.loggedIn"
@@ -37,11 +38,13 @@
         </div>
         <button
           v-else
+          type="button"
+          aria-label="You can't like your own pin"
           class="rounded-lg p-1 text-white transition-all duration-300"
         >
-          <nuxt-link :to="`/${pin.id}/edit/`">
-            <Edit :size="32" fill-color="gray" />
-          </nuxt-link>
+          <Edit :size="32" fill-color="gray">
+            <nuxt-link :to="`/${pin.id}/edit/`"></nuxt-link>
+          </Edit>
         </button>
       </div>
       <article
@@ -79,6 +82,7 @@
                     ? comment.username.avatar
                     : require('@/assets/user-default.png')
                 "
+                alt="user avatar"
               />
               <article
                 class="group relative w-[80%] rounded-[16px] border border-gray-400 p-4 text-gray-500"
@@ -120,21 +124,24 @@
                   ? $auth.user.avatar
                   : require('@/assets/user-default.png')
               "
-              alt=""
+              alt="user avatar"
             />
+            <label class="hidden" for="comment"></label>
             <input
+              id="comment"
               v-model="myComment"
               class="w-auto rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
               type="text"
               placeholder="Add a comment"
             />
-            <input
+            <button
               class="m-auto w-32 cursor-pointer self-end rounded-lg bg-primary px-3 py-3 text-white shadow-md disabled:cursor-not-allowed disabled:bg-gray-400"
               type="submit"
-              value="Send"
               :disabled="!myComment"
               :title="!myComment ? 'Please enter a comment' : 'Send comment'"
-            />
+            >
+              Send
+            </button>
           </form>
 
           <!-- If the user is not logged in -->

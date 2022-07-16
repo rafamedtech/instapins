@@ -77,14 +77,16 @@
                   >Profile</nuxt-link
                 >
               </li>
-              <button
-                v-if="$auth.loggedIn"
-                class="text-gray-500 hover:text-primary"
-                type="button"
-                @click="logoutModal"
-              >
-                Logout
-              </button>
+              <li>
+                <button
+                  v-if="$auth.loggedIn"
+                  class="text-gray-500 hover:text-primary"
+                  type="button"
+                  @click="logoutModal"
+                >
+                  Logout
+                </button>
+              </li>
             </ul>
           </div>
         </figure>

@@ -63,11 +63,12 @@
           />
         </section>
 
-        <input
+        <button
           type="submit"
-          value="Register"
           class="my-6 mx-auto block cursor-pointer self-center rounded-sm border-2 border-solid border-transparent bg-primary py-2 px-6 text-sm text-white duration-200 hover:border-primary hover:bg-primary focus:outline-primary"
-        />
+        >
+          Register
+        </button>
         <nuxt-link
           class="mx-auto mt-6 block w-full text-center text-sm"
           to="/login"
