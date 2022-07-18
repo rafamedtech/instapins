@@ -39,6 +39,7 @@ export const actions = {
       })
 
       this.$auth.setUser(data.user)
+      this.$auth.$storage.setUniversal('user', data.user, true)
       await this.$auth.setUserToken(data.access, data.refresh)
       commit('setStatusMsg', `Welcome back ${this.$auth.user.username}!`)
       setTimeout(() => {
@@ -118,12 +119,6 @@ export const mutations = {
     state.request.message = 'Uploaded Successfully!'
     state.request.status = 'success'
   },
-
-  // setRemoveImageInfo: (state) => {
-  //   state.image = ''
-  //   state.request.message = 'Image deleted successfully!'
-  //   state.request.status = 'success'
-  // },
 
   resetRequest: (state, payload) => {
     state.request.message = payload
