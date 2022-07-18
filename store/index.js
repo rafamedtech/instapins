@@ -9,9 +9,6 @@ export const state = () => ({
 export const actions = {
   async nuxtServerInit({ dispatch }) {
     await dispatch('pins/fetchPins')
-    if (this.$auth.$storage.getUniversal('user')) {
-      await this.$auth.setUserToken(this.$auth.$storage.getUniversal('user'))
-    }
   },
 
   // User Registration
@@ -42,8 +39,8 @@ export const actions = {
       })
 
       this.$auth.setUser(data.user)
+
       await this.$auth.setUserToken(data.access, data.refresh)
-      await this.$auth.$storage.setUniversal('user', data.access)
       // console.log(this.$auth.user)
 
       commit('setStatusMsg', `Welcome back ${this.$auth.user.username}!`)
