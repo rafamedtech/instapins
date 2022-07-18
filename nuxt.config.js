@@ -88,6 +88,11 @@ export default {
             method: 'post',
             propertyName: 'access',
           },
+          refresh: {
+            url: 'users/token/refresh/',
+            method: 'post',
+            propertyName: 'access',
+          },
           logout: { url: 'users/logout/', method: 'post' },
           user: { url: 'users/user/', method: 'get' },
         },
