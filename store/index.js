@@ -10,7 +10,7 @@ export const actions = {
   async nuxtServerInit({ dispatch }) {
     await dispatch('pins/fetchPins')
     if (this.$auth.$storage.getUniversal('user')) {
-      await this.$auth.loginWithToken()
+      await dispatch('auth/fetchUser')
     }
   },
 
@@ -42,8 +42,9 @@ export const actions = {
       })
 
       this.$auth.setUser(data.user)
-      this.$auth.$storage.setUniversal('access', data.user, true)
       await this.$auth.setUserToken(data.access, data.refresh)
+      await this.$auth.$storage.setUniversal('user', this.$auth.user)
+      // console.log(this.$auth.user)
 
       commit('setStatusMsg', `Welcome back ${this.$auth.user.username}!`)
       setTimeout(() => {
