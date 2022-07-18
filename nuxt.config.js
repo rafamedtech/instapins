@@ -79,6 +79,7 @@ export default {
   },
 
   auth: {
+    watchLoggedIn: true,
     strategies: {
       local: {
         endpoints: {
