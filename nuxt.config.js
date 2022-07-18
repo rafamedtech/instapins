@@ -86,7 +86,7 @@ export default {
           login: {
             url: 'users/token/',
             method: 'post',
-            propertyName: 'access_token',
+            propertyName: 'access',
           },
           refresh: {
             url: 'users/token/refresh/',
@@ -94,9 +94,11 @@ export default {
             propertyName: 'access',
           },
           logout: { url: 'users/logout/', method: 'post' },
-          user: { url: 'users/user/', method: 'get', propertyName: false },
+          user: { url: 'users/user/', method: 'get' },
         },
-        tokenType: '',
+        user: {
+          property: false,
+        },
       },
     },
   },
