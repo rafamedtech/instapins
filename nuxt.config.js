@@ -94,11 +94,9 @@ export default {
             propertyName: 'access',
           },
           logout: { url: 'users/logout/', method: 'post' },
-          user: { url: 'users/user/', method: 'get' },
+          user: { url: 'users/user/', method: 'get', propertyName: false },
         },
-        user: {
-          property: false,
-        },
+        tokenType: '',
       },
     },
   },
