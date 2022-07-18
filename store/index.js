@@ -57,6 +57,7 @@ export const actions = {
       }, 5000)
     }
   },
+
   // User Logout
   async userLogout({ commit }) {
     try {
