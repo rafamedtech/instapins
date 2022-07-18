@@ -86,7 +86,7 @@ export default {
           login: {
             url: 'users/token/',
             method: 'post',
-            propertyName: 'access',
+            propertyName: 'access_token',
           },
           refresh: {
             url: 'users/token/refresh/',
