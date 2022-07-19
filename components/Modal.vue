@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex h-[143px] w-[400px] flex-col items-start justify-center gap-8 rounded-xl bg-white pl-8 shadow-lg"
+    class="flex h-[143px] w-full flex-col items-start justify-center gap-8 rounded-xl bg-white pl-8 shadow-lg md:w-[400px]"
   >
     <span class="text-md">{{ message }}</span>
     <div
