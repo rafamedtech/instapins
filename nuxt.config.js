@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import axios from 'axios'
 const dynamicRoutes = () => {
-  return axios.get('https://instapins.herokuapp.com/pins/').then((res) => {
+  return axios.get('https://instapins-api.herokuapp.com/pins/').then((res) => {
     return res.data.map((pin) => `/${pin.id}`)
   })
 }
@@ -65,7 +65,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://instapins.herokuapp.com/' || 'http://localhost:8000/',
+    baseURL: 'https://instapins-api.herokuapp.com/' || 'http://localhost:8000/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
