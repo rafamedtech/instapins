@@ -107,8 +107,4 @@ export default {
   generate: {
     routes: dynamicRoutes,
   },
-
-  server: {
-    port: process.env.PORT || 3000,
-  },
 }
