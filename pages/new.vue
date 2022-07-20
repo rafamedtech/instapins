@@ -167,6 +167,19 @@ export default {
     modalMsg: '',
   }),
 
+  head() {
+    return {
+      title: 'Create a new pin | Instapins',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Login to your account',
+        },
+      ],
+    }
+  },
+
   computed: {
     request() {
       return this.$store.getters.getRequest
@@ -232,10 +245,11 @@ export default {
           filename: url,
         })
       }, 2500)
+
+      this.validation = null
     },
 
     imageValidation() {
-      // regex for image extension validation without empty string
       if (
         this.pin.image !== '' &&
         !this.pin.image.match(/\.(jpe?g|png|gif)$/)

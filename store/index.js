@@ -39,12 +39,7 @@ export const actions = {
       })
 
       this.$auth.setUser(data.user)
-
-      // this.$auth.$storage.setUniversal('token', data.access)
-      // this.$auth.$storage.setUniversal('refresh', data.refresh)
-      // this.$auth.$storage.setUniversal('user', data.user)
       await this.$auth.setUserToken(data.access, data.refresh)
-      // console.log(this.$auth.user)
 
       commit('setStatusMsg', `Welcome back ${this.$auth.user.username}!`)
       setTimeout(() => {

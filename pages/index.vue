@@ -13,7 +13,7 @@
       name="fade"
       tag="section"
       appear
-      class="container columns-2 gap-2 space-y-2 px-2 pb-28 md:columns-3 md:gap-4 md:space-y-4 md:px-4 lg:columns-4 lg:gap-6 lg:space-y-6 lg:px-0"
+      class="container relative columns-2 gap-2 space-y-2 px-2 pb-28 md:columns-3 md:gap-4 md:space-y-4 md:px-4 lg:columns-4 lg:gap-6 lg:space-y-6 lg:px-0"
     >
       <PinCard v-for="pin in pins" :key="pin.id" :pin="pin" />
     </transition-group>
@@ -40,8 +40,8 @@ export default {
     },
   },
 
-  async mounted() {
-    await this.$store.dispatch('pins/fetchPins')
+  mounted() {
+    this.$store.dispatch('pins/fetchPins')
     this.pins = this.getPins
   },
 

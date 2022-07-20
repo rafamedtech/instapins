@@ -105,15 +105,17 @@ export default {
     formErrorMsg: '',
   }),
 
-  head: {
-    title: 'Register | Instapins',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content: 'Create an account',
-      },
-    ],
+  head() {
+    return {
+      title: 'Register | Instapins',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Create an account',
+        },
+      ],
+    }
   },
 
   methods: {

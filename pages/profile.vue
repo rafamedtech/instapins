@@ -117,6 +117,19 @@ export default {
     isLoading: false,
   }),
 
+  head() {
+    return {
+      title: `Profile of ${this.$auth.user.username} | Instapins`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Login to your account',
+        },
+      ],
+    }
+  },
+
   computed: {
     getPins() {
       return this.$store.getters['pins/getPins']

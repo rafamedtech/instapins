@@ -37,16 +37,15 @@
     </div>
 
     <button
-      v-if="$route.path !== '/profile'"
+      v-if="$auth.loggedIn && $route.path !== '/profile'"
       class="absolute top-2 right-2 hidden self-start rounded-lg p-1 transition-all duration-300 hover:text-white group-hover:block"
     >
       <Heart
         :size="48"
         :fill-color="liked ? 'red' : 'gray'"
         class="text-white"
-        :class="$auth.loggedIn ? 'cursor-pointer' : 'cursor-not-allowed'"
-        :title="$auth.loggedIn ? 'Like' : 'You must be logged in to like pins'"
-        @click="$auth.loggedIn ? like() : null"
+        title="Like"
+        @click="like"
       />
     </button>
   </div>
@@ -97,7 +96,6 @@ export default {
       }
     },
     async like() {
-      // console.log(this.pin)
       this.liked = !this.liked
 
       if (this.liked) {
@@ -116,10 +114,6 @@ export default {
 
     deletePin() {
       this.$store.dispatch('pins/deletePin', this.pin.id)
-
-      // setTimeout(() => {
-      //   this.$store.dispatch('pins/fetchPins')
-      // }, 100)
     },
   },
 }

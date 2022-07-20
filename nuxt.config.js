@@ -5,6 +5,7 @@ const dynamicRoutes = () => {
     return res.data.map((pin) => `/${pin.id}`)
   })
 }
+require('dotenv').config()
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -41,6 +42,7 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxt/postcss8',
+
     // '@nuxtjs/html-validator',
   ],
 
@@ -49,12 +51,12 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
+    '@nuxtjs/dotenv',
     [
       'nuxt-supabase',
       {
-        supabaseUrl: 'https://geqogioegammsiznrksj.supabase.co',
-        supabaseKey:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlcW9naW9lZ2FtbXNpem5ya3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTUxNjQ3MjMsImV4cCI6MTk3MDc0MDcyM30.HXWRyc7e8T_k3c0gb-XTAuWIr-Ss1MiAjhPpTmtWtNM',
+        supabaseUrl: process.env.SUPABASE_URL,
+        supabaseKey: process.env.SUPABASE_KEY,
       },
     ],
   ],
@@ -65,7 +67,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://instapins-api.herokuapp.com/' || 'http://localhost:8000/',
+    baseURL: process.env.API_URL || 'http://localhost:8000/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -66,15 +66,17 @@ export default {
     password: '',
   }),
 
-  head: {
-    title: 'Login | Instapins',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content: 'Login to your account',
-      },
-    ],
+  head() {
+    return {
+      title: 'Login | Instapins',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Login to your account',
+        },
+      ],
+    }
   },
 
   methods: {

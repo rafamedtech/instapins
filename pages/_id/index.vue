@@ -37,14 +37,28 @@
           <span class="text-sm text-gray-600">{{ pin.likes.length }}</span>
         </div>
 
-        <nuxt-link
-          v-else
-          class="block rounded-lg p-1 text-white transition-all duration-300"
-          :to="`/${pin.id}/edit/`"
-          aria-label="Edit pin"
-        >
-          <Edit :size="32" fill-color="gray" />
-        </nuxt-link>
+        <div v-else class="flex">
+          <nuxt-link
+            class="block rounded-lg p-1 text-white transition-all duration-300"
+            :to="`/${pin.id}/edit/`"
+            aria-label="Edit pin"
+          >
+            <Edit :size="32" fill-color="gray" />
+          </nuxt-link>
+          <div class="flex flex-col items-center">
+            <Heart
+              :size="48"
+              :fill-color="liked ? 'red' : 'gray'"
+              class="text-white"
+              :class="$auth.loggedIn ? 'cursor-pointer' : 'cursor-not-allowed'"
+              :title="
+                $auth.loggedIn ? 'Like' : 'You must be logged in to like pins'
+              "
+              @click="$auth.loggedIn ? like() : null"
+            />
+            <span class="text-sm text-gray-600">{{ pin.likes.length }}</span>
+          </div>
+        </div>
       </div>
       <article
         class="flex flex-col items-center justify-between gap-y-8 md:w-1/2 md:px-4"
@@ -179,6 +193,19 @@ export default {
     myComment: '',
     openModal: false,
   }),
+
+  head() {
+    return {
+      title: `${this.pin.title} | Instapins`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Login to your account',
+        },
+      ],
+    }
+  },
 
   computed: {
     pin() {

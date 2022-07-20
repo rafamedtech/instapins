@@ -92,11 +92,19 @@ export default {
     isLoading: false,
     modalMsg: '',
   }),
+
+  head() {
+    return {
+      title: `Editing ${this.pin.title} | Instapins`,
+    }
+  },
+
   computed: {
     request() {
       return this.$store.getters.getRequest
     },
   },
+
   mounted() {
     this.getSinglePin()
   },
@@ -120,8 +128,6 @@ export default {
       formData.append('description', this.pin.description)
 
       this.$store.dispatch('pins/updatePin', this.pin)
-
-      //   console.log(this.pin)
     },
   },
 }

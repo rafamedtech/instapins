@@ -2,12 +2,15 @@
   <header
     class="container mb-6 flex flex-col items-center justify-between gap-y-4 p-4 shadow-nav md:flex-row"
   >
-    <nuxt-link
-      :to="{ name: 'index' }"
-      aria-label="Home"
-      class="logo text-6xl text-gray-500"
-      >Instapins</nuxt-link
-    >
+    <div class="flex items-center gap-4">
+      <img src="@/assets/logo.png" alt="logo" class="w-14" />
+      <nuxt-link
+        :to="{ name: 'index' }"
+        aria-label="Home"
+        class="logo text-5xl text-gray-500"
+        >Instapins</nuxt-link
+      >
+    </div>
     <div class="flex flex-col-reverse gap-x-4 gap-y-2 md:flex-row">
       <div class="flex w-[250px] justify-around gap-x-4 md:w-auto">
         <nuxt-link
@@ -46,7 +49,7 @@
         >
           <img
             class="h-full w-full rounded-full object-cover p-1"
-            :class="$route.path === '/profile' ? 'bg-primary' : 'bg-gray-200'"
+            :class="$auth.user.avatar ? 'bg-primary' : 'bg-gray-200'"
             :src="
               $auth.user.avatar
                 ? $auth.user.avatar
