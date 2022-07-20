@@ -1,8 +1,8 @@
 <template>
   <div
-    class="flex h-[143px] w-full flex-col items-start justify-center gap-8 rounded-xl bg-white pl-8 shadow-lg md:w-[400px]"
+    class="mt-[50vh] flex h-[143px] w-full flex-col items-start justify-center gap-8 rounded-xl bg-white shadow-lg md:w-[400px]"
   >
-    <span class="text-md">{{ message }}</span>
+    <span class="text-md pl-4">{{ message }}</span>
     <div
       v-if="confirmation"
       class="flex w-full items-center justify-end gap-x-4 pr-4"
@@ -29,7 +29,7 @@
     </div>
     <span
       v-else
-      class="loading-animation relative h-[6px] w-[340px] overflow-hidden rounded-lg bg-[#f2f2f2] after:absolute after:inset-0 after:w-32 after:translate-x-2 after:rounded-lg after:bg-[#2F80ED] after:content-['']"
+      class="loading-animation relative mx-2 h-[6px] w-[340px] overflow-hidden rounded-lg bg-[#f2f2f2] after:absolute after:inset-0 after:w-32 after:translate-x-2 after:rounded-lg after:bg-[#2F80ED] after:content-['']"
     ></span>
   </div>
 </template>

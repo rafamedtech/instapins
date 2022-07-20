@@ -1,5 +1,5 @@
 <template>
-  <main class="my-12">
+  <main class="mt-12">
     <section
       class="container mb-4 flex flex-col items-center gap-y-4 md:mb-8 md:flex-row md:justify-between md:px-4 lg:p-0"
     >

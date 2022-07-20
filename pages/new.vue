@@ -12,7 +12,7 @@
       class="mx-2 flex h-auto min-h-[500px] flex-col rounded-[32px] p-4 shadow-pinterest md:mx-4 md:flex-row md:gap-x-8"
     >
       <article
-        class="absolute inset-0 z-50 grid h-screen w-screen place-items-center overflow-hidden bg-[#2C394B]/75 transition-all"
+        class="absolute inset-0 z-50 grid min-h-screen w-screen justify-items-center overflow-hidden bg-[#2C394B]/75 p-4 transition-all"
         :class="{ hidden: !isLoading }"
       >
         <transition name="fade">

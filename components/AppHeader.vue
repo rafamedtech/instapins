@@ -85,7 +85,7 @@
       </div>
     </div>
     <article
-      class="absolute inset-0 z-50 grid h-screen w-screen place-items-center overflow-hidden bg-[#2C394B]/75 p-4 transition-all"
+      class="absolute inset-0 z-50 grid min-h-screen w-screen justify-items-center overflow-hidden bg-[#2C394B]/75 p-4 transition-all"
       :class="{ hidden: !openModal }"
     >
       <transition name="fade">
