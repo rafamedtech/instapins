@@ -18,8 +18,7 @@
     "nuxt": "^2.15.7",
     "nuxt-supabase": "^2.3.1",
     "vue-material-design-icons": "^5.0.0",
-    "vue-template-compiler": "^2.7.6",
-    "@nuxtjs/dotenv": "^1.4.1"
+    "vue-template-compiler": "^2.7.6"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
