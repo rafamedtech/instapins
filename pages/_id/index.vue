@@ -37,7 +37,7 @@
           <span class="text-sm text-gray-600">{{ pin.likes.length }}</span>
         </div>
 
-        <div v-else class="flex">
+        <div v-else class="flex justify-center">
           <nuxt-link
             class="block rounded-lg p-1 text-white transition-all duration-300"
             :to="`/${pin.id}/edit/`"
@@ -129,24 +129,28 @@
             class="flex w-full flex-wrap items-center justify-evenly gap-4 md:justify-start md:gap-2 md:p-4 lg:flex-nowrap"
             @submit.prevent="commentPin"
           >
-            <img
-              class="h-16 w-16 rounded-full object-cover"
-              :class="!$auth.user.avatar && 'bg-gray-200'"
-              :src="
-                $auth.user.avatar
-                  ? $auth.user.avatar
-                  : require('@/assets/user-default.png')
-              "
-              alt="user avatar"
-            />
-            <label class="hidden" for="comment"></label>
-            <input
-              id="comment"
-              v-model="myComment"
-              class="w-auto rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
-              type="text"
-              placeholder="Add a comment"
-            />
+            <div
+              class="flex w-full justify-around md:w-auto md:justify-start md:gap-x-4"
+            >
+              <img
+                class="h-16 w-16 rounded-full object-cover"
+                :class="!$auth.user.avatar && 'bg-gray-200'"
+                :src="
+                  $auth.user.avatar
+                    ? $auth.user.avatar
+                    : require('@/assets/user-default.png')
+                "
+                alt="user avatar"
+              />
+              <label class="hidden" for="comment"></label>
+              <input
+                id="comment"
+                v-model="myComment"
+                class="w-auto rounded-[16px] border border-gray-400 p-4 text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
+                type="text"
+                placeholder="Add a comment"
+              />
+            </div>
             <button
               class="m-auto w-32 cursor-pointer self-end rounded-lg bg-primary px-3 py-3 text-white shadow-md disabled:cursor-not-allowed disabled:bg-gray-400"
               type="submit"
